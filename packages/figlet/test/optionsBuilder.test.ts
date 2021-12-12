@@ -22,7 +22,7 @@ describe("OptionsBuilder", () => {
         const builder = pipe(
           OptionsBuilder.builder(),
           OptionsBuilder.text(expected),
-          OptionsBuilder.toFigure
+          OptionsBuilder.renderToFigure
         )
         const computed = yield* _(builder)
 
@@ -38,7 +38,7 @@ describe("OptionsBuilder", () => {
             "All the world’s a stage, and all the men and women merely players."
           ),
           OptionsBuilder.text(expected),
-          OptionsBuilder.toFigure
+          OptionsBuilder.renderToFigure
         )
         const computed = yield* _(builder)
 
