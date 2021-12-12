@@ -32,7 +32,7 @@ describe("Client", () => {
           columns: C.single(SubLines.toSubcolumns(standardLines)),
           value: standardInput
         })
-        const computed = yield* _(OptionsBuilder.toString(builder))
+        const computed = yield* _(OptionsBuilder.renderToString(builder))
 
         expect(Figure.showFigure.show(figure)).toBe(computed)
       }))
