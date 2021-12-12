@@ -6,8 +6,8 @@
   "homepage": "https://www.matechs.com",
   "scripts": {
     "clean": "yarn ets:rimraf build tsbuildinfo dist",
-    "build-fonts-cjs": "copyfiles -f src/Internal/fonts/**/*.flf dist/Internal/figlet/fonts",
-    "build-fonts-esm": "copyfiles -f src/figlet/fonts/*.flf dist/_esm/Internal/figlet/fonts",
+    "build-fonts-cjs": "copyfiles -u 3 \"src/Internal/fonts/**/*\" dist/Internal/fonts",
+    "build-fonts-esm": "copyfiles -u 3 \"src/Internal/fonts/**/*\" dist/_esm/Internal/fonts",
     "build-fonts": "yarn ets:concurrently \"yarn build-fonts-cjs\" \"yarn build-fonts-esm\"",
     "build-cjs": "yarn ets:tsc -p tsconfig.build.cjs.json",
     "build-esm": "yarn ets:tsc -p tsconfig.build.esm.json && babel build/esm/ -d build/esm/ -s --plugins annotate-pure-calls",
