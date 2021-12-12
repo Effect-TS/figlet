@@ -401,20 +401,23 @@ export function toRenderOptions(
   )
 }
 
-export function toString(
-  self: OptionsBuilder
-): T.Effect<Has<FigletClient.FigletClient>, NonEmptyArray<FigletException>, string> {
-  return T.map_(toFigure(self), Fig.showFigure.show)
-}
-
-export function toFigure(
+export function renderToFigure(
   self: OptionsBuilder
 ): T.Effect<Has<FigletClient.FigletClient>, NonEmptyArray<FigletException>, Figure> {
-  return T.gen(function* (_) {
-    const buildOptions = yield* _(toBuildData(self))
-    const renderOptions = yield* _(toRenderOptions(self))
-    return yield* _(FigletClient.renderString(buildOptions.text, renderOptions))
-  })
+  return pipe(
+    T.do,
+    T.bind("buildOptions", () => toBuildData(self)),
+    T.bind("renderOptions", () => toRenderOptions(self)),
+    T.map(({ buildOptions, renderOptions }) =>
+      FigletClient.renderToFigure(buildOptions.text, renderOptions)
+    )
+  )
+}
+
+export function renderToString(
+  self: OptionsBuilder
+): T.Effect<Has<FigletClient.FigletClient>, NonEmptyArray<FigletException>, string> {
+  return pipe(renderToFigure(self), T.map(Fig.showFigure.show))
 }
 
 // -----------------------------------------------------------------------------

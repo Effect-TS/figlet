@@ -22,6 +22,8 @@ import type { FigFont } from "../FigFont"
 import * as FF from "../FigFont"
 import type { FigletException } from "../FigletException"
 import { FigletFileError } from "../FigletException"
+import type { Figure } from "../Figure"
+import * as Fig from "../Figure"
 import { FontFileReader } from "../FontFileReader"
 import type { InternalFont } from "../Internal"
 import { splitLines, utf8Decode } from "../Internal/Transducers"
@@ -64,9 +66,7 @@ export const makeFigletClient = T.gen(function* (_) {
             ),
           (filepath) => read(filepath, createFigFont)
         )
-      ),
-    renderString: (text: string, options: RenderOptions) =>
-      T.succeed(Rendering.render(text, options))
+      )
   })
 })
 
@@ -83,13 +83,12 @@ export const {
   defaultMaxWidth,
   internalFonts,
   loadFont,
-  loadFontInternal,
-  renderString
-} = T.deriveLifted(FigletClient)(
-  ["loadFont", "loadFontInternal", "renderString"],
-  [],
-  ["defaultFont", "defaultMaxWidth", "internalFonts"]
-)
+  loadFontInternal
+} = T.deriveLifted(FigletClient)(["loadFont", "loadFontInternal"], [] as never, [
+  "defaultFont",
+  "defaultMaxWidth",
+  "internalFonts"
+])
 
 function createFigFont(
   file: string,
@@ -103,6 +102,24 @@ function createFigFont(
     T.mapError(NA.single),
     T.chain((lines) => T.fromEither(() => FF.fromFile(file, lines)))
   )
+}
+
+// -----------------------------------------------------------------------------
+// Operations
+// -----------------------------------------------------------------------------
+
+/**
+ * Render the specified text to a `Figure` using the provided `RenderOptions`.
+ */
+export function renderToFigure(text: string, options: RenderOptions): Figure {
+  return Rendering.render(text, options)
+}
+
+/**
+ * Render the specified text to a string using the provided `RenderOptions`.
+ */
+export function renderToString(text: string, options: RenderOptions): string {
+  return Fig.showFigure.show(renderToFigure(text, options))
 }
 
 // -----------------------------------------------------------------------------
