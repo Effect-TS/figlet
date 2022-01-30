@@ -113,7 +113,7 @@ export function fromHeader(
           C.toArray(settings),
           C.toArray(FullLayout.verticalSmushingRules)
         ),
-        A.filterMap(
+        A.collect(
           matchTag(
             {
               EqualCharacterVerticalSmushing: () => O.some(new EqualCharacter()),

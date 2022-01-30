@@ -112,7 +112,7 @@ export function fromFullLayout(
     O.getOrElse_(
       O.map_(header.fullLayout, (settings) =>
         C.from(
-          A.filterMap_(
+          A.collect_(
             A.intersection_(FullLayout.equalFullLayout)(
               C.toArray(settings),
               C.toArray(FullLayout.horizontalSmushingRules)
@@ -148,7 +148,7 @@ export function fromOldLayout(
   header: FigHeader
 ): FigletResult<Chunk<HorizontalSmushingRule>> {
   const rules = C.from(
-    A.filterMap_(
+    A.collect_(
       C.toArray(header.oldLayout),
       matchTag(
         {

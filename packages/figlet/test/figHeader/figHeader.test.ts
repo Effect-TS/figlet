@@ -285,7 +285,7 @@ describe("FigHeader", () => {
         E.map((_) =>
           pipe(
             _.fullLayout,
-            O.fold(() => A.emptyOf<FullLayout.FullLayout>(), C.toArray)
+            O.fold(() => A.empty<FullLayout.FullLayout>(), C.toArray)
           )
         )
       )

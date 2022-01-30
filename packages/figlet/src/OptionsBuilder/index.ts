@@ -311,7 +311,7 @@ export function toBuildData(
   self: OptionsBuilder
 ): T.Effect<Has<FigletClient.FigletClient>, NonEmptyArray<FigletException>, BuildData> {
   return T.chain_(FigletClient.defaultFont, (defaultFont) =>
-    C.reduceM_(self.actions, buildData(), (data, action) => {
+    C.reduceEffect_(self.actions, buildData(), (data, action) => {
       return pipe(
         action,
         T.matchTag({

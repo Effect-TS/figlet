@@ -152,7 +152,11 @@ describe("FigFont", () => {
       const lines = font.chainTagged((char, i) =>
         i === 0
           ? C.from(
-              pipe(char.split("\n").slice(1), A.cons("  NO-BREAK SPACE"), A.join("\n"))
+              pipe(
+                char.split("\n").slice(1),
+                A.prepend("  NO-BREAK SPACE"),
+                A.join("\n")
+              )
             )
           : C.single(char)
       )
@@ -174,7 +178,7 @@ describe("FigFont", () => {
           ? C.single(
               pipe(
                 char.split("\n").slice(1),
-                A.cons("ABCD  NO-BREAK SPACE"),
+                A.prepend("ABCD  NO-BREAK SPACE"),
                 A.join("\n")
               )
             )
@@ -195,7 +199,7 @@ describe("FigFont", () => {
     it("should not fail if the comment of a tag is missing", () => {
       const lines = font.chainTagged((char, i) =>
         i === 0
-          ? C.single(pipe(char.split("\n").slice(1), A.cons("160"), A.join("\n")))
+          ? C.single(pipe(char.split("\n").slice(1), A.prepend("160"), A.join("\n")))
           : C.single(char)
       )
       const computed = TestUtils.stringifyError(FigFont.fromFile("test.file", lines))

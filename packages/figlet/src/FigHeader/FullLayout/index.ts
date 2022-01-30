@@ -154,7 +154,7 @@ export function fromValue(requestedSettings: number): FigletResult<Chunk<FullLay
     )
   }
 
-  const result = C.filterMap_(values, (setting) =>
+  const result = C.collect_(values, (setting) =>
     (setting.value & requestedSettings) !== 0 ? O.some(setting) : O.none
   )
 

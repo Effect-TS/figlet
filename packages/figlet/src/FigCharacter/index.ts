@@ -232,9 +232,9 @@ function validateEndmark(
     A.chain((line) =>
       pipe(
         String.match_(line, /(.)\1?$/),
-        O.getOrElse(() => A.emptyOf<string>()),
+        O.getOrElse(() => A.empty<string>()),
         A.head,
-        O.fold(() => A.emptyOf<string>(), A.single)
+        O.fold(() => A.empty<string>(), A.single)
       )
     ),
     A.map(String.trim)
