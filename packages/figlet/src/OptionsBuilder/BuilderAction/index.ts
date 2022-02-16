@@ -3,11 +3,11 @@
 import { Tagged } from "@effect-ts/core/Case"
 import * as Equal from "@effect-ts/core/Equal"
 
-import type { FigFont } from "../../FigFont"
-import type { InternalFont } from "../../Internal"
-import type { HorizontalLayout } from "../../RenderOptions/HorizontalLayout"
-import type { Justification } from "../../RenderOptions/Justification"
-import type { PrintDirection } from "../../RenderOptions/PrintDirection"
+import type { FigFont } from "../../FigFont/index.js"
+import type { InternalFont } from "../../Internal/index.js"
+import type { HorizontalLayout } from "../../RenderOptions/HorizontalLayout/index.js"
+import type { Justification } from "../../RenderOptions/Justification/index.js"
+import type { PrintDirection } from "../../RenderOptions/PrintDirection/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

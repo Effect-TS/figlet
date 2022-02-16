@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 8 7 28 -1 36
 Converted from cli8x8.bdf by bdf2flf (by John Cowan <cowan@ccil.org>)
 COMMENT $XConsortium: clI8x8.bdf,v 1.2 94/04/11 12:08:19 gildea Exp $

@@ -2,10 +2,10 @@
 
 import { Case } from "@effect-ts/core/Case"
 
-import type { FigFont } from "../FigFont"
-import type { HorizontalLayout } from "./HorizontalLayout"
-import type { Justification } from "./Justification"
-import type { PrintDirection } from "./PrintDirection"
+import type { FigFont } from "../FigFont/index.js"
+import type { HorizontalLayout } from "./HorizontalLayout/index.js"
+import type { Justification } from "./Justification/index.js"
+import type { PrintDirection } from "./PrintDirection/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

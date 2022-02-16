@@ -8,13 +8,13 @@ import * as E from "@effect-ts/core/Either"
 import { pipe } from "@effect-ts/core/Function"
 import * as O from "@effect-ts/core/Option"
 
-import type { FigCharacter } from "../FigCharacter"
-import * as FC from "../FigCharacter"
-import type { FigletResult } from "../FigletException"
-import * as SL from "../SubLines"
-import type { CharBuilderState } from "./builder"
-import { buildFont, FontBuilderState, processLine } from "./builder"
-import type { FigFont } from "./definition"
+import type { FigCharacter } from "../FigCharacter/index.js"
+import * as FC from "../FigCharacter/index.js"
+import type { FigletResult } from "../FigletException/index.js"
+import * as SL from "../SubLines/index.js"
+import type { CharBuilderState } from "./builder.js"
+import { buildFont, FontBuilderState, processLine } from "./builder.js"
+import type { FigFont } from "./definition.js"
 
 // -----------------------------------------------------------------------------
 // Operations

@@ -7,12 +7,12 @@ import type { Option } from "@effect-ts/core/Option"
 import * as O from "@effect-ts/core/Option"
 import { matchTag, matchTag_ } from "@effect-ts/core/Utils"
 
-import type * as FontHorizontalLayout from "../../FigFont/HorizontalLayout"
-import type { HorizontalSmushingRule } from "../../FigFont/HorizontalSmushingRule"
-import type { RenderOptions } from "../../RenderOptions"
-import * as ClientHorizontalLayout from "../../RenderOptions/HorizontalLayout"
-import * as MergeAction from "../MergeAction"
-import type { MergeState, MergeStrategy } from "../MergeStrategy"
+import type * as FontHorizontalLayout from "../../FigFont/HorizontalLayout/index.js"
+import type { HorizontalSmushingRule } from "../../FigFont/HorizontalSmushingRule/index.js"
+import * as ClientHorizontalLayout from "../../RenderOptions/HorizontalLayout/index.js"
+import type { RenderOptions } from "../../RenderOptions/index.js"
+import * as MergeAction from "../MergeAction/index.js"
+import type { MergeState, MergeStrategy } from "../MergeStrategy/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

@@ -13,8 +13,8 @@ import { makeShow } from "@effect-ts/core/Show"
 import * as String from "@effect-ts/core/String"
 import * as Structural from "@effect-ts/core/Structural"
 
-import { escapeRegExp, transpose } from "../Internal"
-import { SubColumns } from "../SubColumns"
+import { escapeRegExp, transpose } from "../Internal/index.js"
+import { SubColumns } from "../SubColumns/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

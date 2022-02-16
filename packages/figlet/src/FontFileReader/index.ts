@@ -11,9 +11,9 @@ import type { Byte } from "@effect-ts/node/Byte"
 import * as NS from "@effect-ts/node/Stream"
 import * as NodeJSFileSystem from "fs"
 
-import type { FigFont } from "../FigFont"
-import type { FigletException } from "../FigletException"
-import { FigletFileError } from "../FigletException"
+import type { FigFont } from "../FigFont/index.js"
+import type { FigletException } from "../FigletException/index.js"
+import { FigletFileError } from "../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

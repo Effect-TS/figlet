@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 20 16 34 0 30 0
 Modified by Paul Burton September 96 from caligraphy.flf as a demonstration of 
 FigWin features.  Modification took about 5 minutes using FigWin's "rectangle 

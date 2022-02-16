@@ -3,8 +3,8 @@
 import { Tagged } from "@effect-ts/core/Case"
 import { matchTag_ } from "@effect-ts/core/Utils"
 
-import type { FigFont } from "../../FigFont"
-import * as FontDirection from "../../FigFont/PrintDirection"
+import type { FigFont } from "../../FigFont/index.js"
+import * as FontDirection from "../../FigFont/PrintDirection/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

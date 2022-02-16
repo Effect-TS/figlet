@@ -5,9 +5,9 @@ import type { Equal } from "@effect-ts/core/Equal"
 import * as Eq from "@effect-ts/core/Equal"
 import * as Structural from "@effect-ts/core/Structural"
 
-import type { HorizontalLayout } from "../HorizontalLayout"
-import type { PrintDirection } from "../PrintDirection"
-import type { VerticalLayout } from "../VerticalLayout"
+import type { HorizontalLayout } from "../HorizontalLayout/index.js"
+import type { PrintDirection } from "../PrintDirection/index.js"
+import type { VerticalLayout } from "../VerticalLayout/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

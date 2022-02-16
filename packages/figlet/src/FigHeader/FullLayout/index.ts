@@ -9,8 +9,8 @@ import type { Equal } from "@effect-ts/core/Equal"
 import { makeEqual } from "@effect-ts/core/Equal"
 import * as O from "@effect-ts/core/Option"
 
-import type { FigletResult } from "../../FigletException"
-import { FigHeaderError } from "../../FigletException"
+import type { FigletResult } from "../../FigletException/index.js"
+import { FigHeaderError } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 6 5 15 -1 23
 bell.flf
 Lower case letters, punctuation, and miscellaneous changes by Kent Nassen, 

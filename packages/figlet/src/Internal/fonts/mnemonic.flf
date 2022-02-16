@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 1 1 12 -1 5 0 0 1797
 mnemonic - a FIGfont by John Cowan <cowan@@ccil.org>
 This font uses the mnemonics of RFC1345

@@ -2,13 +2,13 @@
 
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
 
-import * as FigCharacter from "../FigCharacter"
-import * as FigFont from "../FigFont"
-import { Figure } from "../Figure"
-import type { RenderOptions } from "../RenderOptions"
-import * as SubColumns from "../SubColumns"
-import * as SubLines from "../SubLines"
-import { appendLoop, appendLoopState } from "./MergeStrategy"
+import * as FigCharacter from "../FigCharacter/index.js"
+import * as FigFont from "../FigFont/index.js"
+import { Figure } from "../Figure/index.js"
+import type { RenderOptions } from "../RenderOptions/index.js"
+import * as SubColumns from "../SubColumns/index.js"
+import * as SubLines from "../SubLines/index.js"
+import { appendLoop, appendLoopState } from "./MergeStrategy/index.js"
 
 // -----------------------------------------------------------------------------
 // Rendering Functions

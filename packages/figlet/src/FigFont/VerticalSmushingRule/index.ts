@@ -9,9 +9,9 @@ import { pipe } from "@effect-ts/core/Function"
 import * as O from "@effect-ts/core/Option"
 import { matchTag } from "@effect-ts/core/Utils"
 
-import type { FigHeader } from "../../FigHeader"
-import * as FullLayout from "../../FigHeader/FullLayout"
-import type { FigletResult } from "../../FigletException"
+import * as FullLayout from "../../FigHeader/FullLayout/index.js"
+import type { FigHeader } from "../../FigHeader/index.js"
+import type { FigletResult } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

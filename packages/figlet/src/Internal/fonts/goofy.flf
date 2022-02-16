@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 6 6 30 0 22
 Explanation of first line:                            *** GoofY 0.1 ***
 flf2a - necessary stuff to identify the kind of file

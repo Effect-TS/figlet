@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 1 1 11 -1 11 0
 
 binary.flf (C) 1994 by Victor Parada (vparada@inf.utfsm.cl) 94/12/05

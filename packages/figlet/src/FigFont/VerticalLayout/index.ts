@@ -11,11 +11,11 @@ import { pipe } from "@effect-ts/core/Function"
 import * as O from "@effect-ts/core/Option"
 import * as Structural from "@effect-ts/core/Structural"
 
-import type { FigHeader } from "../../FigHeader"
-import * as FullLayout from "../../FigHeader/FullLayout"
-import type { FigletResult } from "../../FigletException"
-import type { VerticalSmushingRule } from "../VerticalSmushingRule"
-import * as VSR from "../VerticalSmushingRule"
+import * as FullLayout from "../../FigHeader/FullLayout/index.js"
+import type { FigHeader } from "../../FigHeader/index.js"
+import type { FigletResult } from "../../FigletException/index.js"
+import type { VerticalSmushingRule } from "../VerticalSmushingRule/index.js"
+import * as VSR from "../VerticalSmushingRule/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 export type InternalFont =
   | "1row"
   | "3-d"

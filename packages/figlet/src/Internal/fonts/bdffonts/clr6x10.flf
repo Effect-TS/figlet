@@ -1,3 +1,5 @@
+// ets_tracing: off
+
 flf2a$ 10 8 26 -1 36
 Converted from clr6x10.bdf by bdf2flf (by John Cowan <cowan@ccil.org>)
 COMMENT $XConsortium: clR6x10.bdf,v 1.2 94/04/11 12:08:28 gildea Exp $

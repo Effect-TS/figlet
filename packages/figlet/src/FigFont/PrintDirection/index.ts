@@ -10,9 +10,9 @@ import * as Eq from "@effect-ts/core/Equal"
 import * as O from "@effect-ts/core/Option"
 import * as Structural from "@effect-ts/core/Structural"
 
-import type { FigHeader } from "../../FigHeader"
-import type { FigletResult } from "../../FigletException"
-import { FigHeaderError } from "../../FigletException"
+import type { FigHeader } from "../../FigHeader/index.js"
+import type { FigletResult } from "../../FigletException/index.js"
+import { FigHeaderError } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

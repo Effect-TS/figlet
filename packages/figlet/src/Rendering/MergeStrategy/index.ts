@@ -6,10 +6,10 @@ import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
 import { constVoid, pipe } from "@effect-ts/core/Function"
 import * as IO from "@effect-ts/core/IO"
 
-import type { RenderOptions } from "../../RenderOptions"
-import * as HorizontalMergeRules from "../HorizontalMergeRules"
-import type { MergeAction } from "../MergeAction"
-import * as MA from "../MergeAction"
+import type { RenderOptions } from "../../RenderOptions/index.js"
+import * as HorizontalMergeRules from "../HorizontalMergeRules/index.js"
+import type { MergeAction } from "../MergeAction/index.js"
+import * as MA from "../MergeAction/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

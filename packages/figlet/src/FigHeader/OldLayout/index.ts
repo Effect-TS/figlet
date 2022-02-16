@@ -9,8 +9,8 @@ import type { Equal } from "@effect-ts/core/Equal"
 import { pipe } from "@effect-ts/core/Function"
 import { makeEqual } from "@effect-ts/system/Equal"
 
-import type { FigletResult } from "../../FigletException"
-import { FigHeaderError } from "../../FigletException"
+import type { FigletResult } from "../../FigletException/index.js"
+import { FigHeaderError } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

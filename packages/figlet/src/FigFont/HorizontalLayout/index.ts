@@ -13,13 +13,13 @@ import type { Option } from "@effect-ts/core/Option"
 import * as O from "@effect-ts/core/Option"
 import * as Structural from "@effect-ts/core/Structural"
 
-import type { FigHeader } from "../../FigHeader"
-import * as FullLayout from "../../FigHeader/FullLayout"
-import * as OldLayout from "../../FigHeader/OldLayout"
-import type { FigletResult } from "../../FigletException"
-import { FigFontError } from "../../FigletException"
-import type { HorizontalSmushingRule } from "../HorizontalSmushingRule"
-import * as HSR from "../HorizontalSmushingRule"
+import * as FullLayout from "../../FigHeader/FullLayout/index.js"
+import type { FigHeader } from "../../FigHeader/index.js"
+import * as OldLayout from "../../FigHeader/OldLayout/index.js"
+import type { FigletResult } from "../../FigletException/index.js"
+import { FigFontError } from "../../FigletException/index.js"
+import type { HorizontalSmushingRule } from "../HorizontalSmushingRule/index.js"
+import * as HSR from "../HorizontalSmushingRule/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
