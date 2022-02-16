@@ -1,8 +1,8 @@
 // ets_tracing: off
 
 // codegen:start { preset: barrel, include: ./*.ts }
-export * from "./builder"
-export * from "./definition"
-export * from "./instances"
-export * from "./operations"
+export * from "./builder.js"
+export * from "./definition.js"
+export * from "./instances.js"
+export * from "./operations.js"
 // codegen:end
