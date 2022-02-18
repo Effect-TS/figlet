@@ -8,7 +8,7 @@ import { pipe } from "@effect-ts/system/Function"
 import type { FigCharacter } from "../../../src/FigCharacter"
 import * as FC from "../../../src/FigCharacter"
 import type { FigletResult } from "../../../src/FigletException"
-import { SubLines } from "../../../src/SubLines"
+import * as SubLines from "../../../src/SubLines"
 import * as StandardFont from "../StandardFont"
 import { TestHeader } from "../TestHeader"
 
@@ -18,7 +18,7 @@ import { TestHeader } from "../TestHeader"
 
 export function get(params: {
   char: string
-  lines?: SubLines
+  lines?: SubLines.SubLines
   maxWidth?: number
   height?: number
 }): FigletResult<FigCharacter> {
@@ -40,14 +40,16 @@ export function get(params: {
   )
 }
 
-export function chain(f: (name: string, index: number) => Chunk<string>): SubLines {
+export function chain(
+  f: (name: string, index: number) => Chunk<string>
+): SubLines.SubLines {
   return getChain("036", f)
 }
 
 export function getChain(
   name: string,
   f: (name: string, index: number) => Chunk<string>
-): SubLines {
+): SubLines.SubLines {
   return pipe(
     Map.lookup_(StandardFont.characters, name),
     O.fold(
@@ -55,13 +57,13 @@ export function getChain(
         throw new Error(`Invalid name ${name}`)
       },
       (s) =>
-        new SubLines({
-          value: pipe(
+        SubLines.fromValue(
+          pipe(
             C.from(s.split("\n")),
             C.zipWithIndex,
             C.chain(({ tuple: [name, index] }) => f(name, index))
           )
-        })
+        )
     )
   )
 }

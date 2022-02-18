@@ -224,7 +224,7 @@ function buildChar(
         fontState.hash,
         header,
         charState.name,
-        new SL.SubLines({ value: charState.lines }),
+        SL.fromValue(charState.lines),
         charState.comment,
         charState.position
       )

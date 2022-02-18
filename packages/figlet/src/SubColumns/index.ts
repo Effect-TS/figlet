@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Case } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -14,15 +13,15 @@ import * as String from "@effect-ts/core/String"
 import * as Structural from "@effect-ts/core/Structural"
 
 import { escapeRegExp, transpose } from "../Internal/index.js"
-import { SubLines } from "../SubLines/index.js"
+import type { SubLines } from "../SubLines/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
 // -----------------------------------------------------------------------------
 
-export class SubColumns extends Case<{
+export interface SubColumns {
   readonly value: Chunk<string>
-}> {}
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
@@ -32,7 +31,7 @@ export class SubColumns extends Case<{
  * Create an instance of `SubColumns` from a pure value.
  */
 export function fromValue(value: Chunk<string>): SubColumns {
-  return new SubColumns({ value })
+  return { value }
 }
 
 /**
@@ -41,7 +40,7 @@ export function fromValue(value: Chunk<string>): SubColumns {
  * @param height The number of columns that compose this `SubColumns` object.
  */
 export function zero(width: number): SubColumns {
-  return new SubColumns({ value: C.single(" ".repeat(width)) })
+  return { value: C.single(" ".repeat(width)) }
 }
 
 // -----------------------------------------------------------------------------
@@ -56,7 +55,7 @@ export function height(self: SubColumns): number {
 }
 
 export function toSubLines(self: SubColumns): SubLines {
-  return new SubLines({
+  return {
     value: pipe(
       C.toArray(self.value),
       A.map(String.split("")),
@@ -64,7 +63,7 @@ export function toSubLines(self: SubColumns): SubLines {
       A.map(A.join("")),
       C.from
     )
-  })
+  }
 }
 
 /**
