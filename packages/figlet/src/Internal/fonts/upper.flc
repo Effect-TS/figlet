@@ -1,5 +1,3 @@
-// ets_tracing: off
-
 flc2a
 # Upper by Glenn Chappell <ggc@uiuc.edu> 1/94
 # Converts lower-case to upper-case.

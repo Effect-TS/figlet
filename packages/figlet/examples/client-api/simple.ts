@@ -13,9 +13,9 @@ const renderOptions = pipe(
   T.struct({
     font: FigletClient.loadFontInternal("slant"),
     maxWidth: T.succeed(120),
-    horizontalLayout: T.succeed(new HorizontalLayout.HorizontalSmushing()),
-    justification: T.succeed(new Justification.FontDefault()),
-    printDirection: T.succeed(new PrintDirection.LeftToRight())
+    horizontalLayout: T.succeed(HorizontalLayout.HorizontalSmushing),
+    justification: T.succeed(Justification.FontDefault),
+    printDirection: T.succeed(PrintDirection.LeftToRight)
   }),
   T.map((_) => new RenderOptions(_))
 )

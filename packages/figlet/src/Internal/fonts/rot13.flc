@@ -1,5 +1,3 @@
-// ets_tracing: off
-
 flc2a
 # rot13 by Sis <suaac@csv.warwick.ac.uk> 2/95
 # Rotates letters by 13 characters.
