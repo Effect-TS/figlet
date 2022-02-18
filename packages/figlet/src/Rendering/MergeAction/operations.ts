@@ -5,8 +5,8 @@ import * as Tp from "@effect-ts/core/Collections/Immutable/Tuple"
 import { identity } from "@effect-ts/core/Function"
 import { matchTag_ } from "@effect-ts/core/Utils"
 
-import type { MergeAction } from "./definition"
-import { Continue, CurrentLast, Stop } from "./definition"
+import type { MergeAction } from "./definition.js"
+import { Continue, CurrentLast, Stop } from "./definition.js"
 
 // -----------------------------------------------------------------------------
 // Operations

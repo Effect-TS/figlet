@@ -2,7 +2,7 @@
 
 import * as DSL from "@effect-ts/core/Prelude/DSL"
 
-import { Applicative } from "./instances"
+import { Applicative } from "./instances.js"
 
 // -----------------------------------------------------------------------------
 // Instances

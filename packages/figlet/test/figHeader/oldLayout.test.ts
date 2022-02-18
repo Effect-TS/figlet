@@ -58,10 +58,7 @@ describe("OldLayout", () => {
     const computed = pipe(OldLayout.fromValue(3), E.map(C.toArray))
 
     expect(computed).toEqual(
-      E.right([
-        new OldLayout.EqualCharacterSmushing(),
-        new OldLayout.UnderscoreSmushing()
-      ])
+      E.right([OldLayout.EqualCharacterSmushing, OldLayout.UnderscoreSmushing])
     )
   })
 

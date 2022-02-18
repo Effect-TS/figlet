@@ -26,18 +26,9 @@ describe("PrintDirection", () => {
   })
 
   it.each([
-    Tp.tuple(
-      O.some(new PrintDirection.LeftToRight()),
-      new PrintDirection.LeftToRight()
-    ),
-    Tp.tuple(
-      O.some(new PrintDirection.RightToLeft()),
-      new PrintDirection.RightToLeft()
-    ),
-    Tp.tuple(
-      O.emptyOf<PrintDirection.PrintDirection>(),
-      new PrintDirection.LeftToRight()
-    )
+    Tp.tuple(O.some(PrintDirection.LeftToRight), PrintDirection.LeftToRight),
+    Tp.tuple(O.some(PrintDirection.RightToLeft), PrintDirection.RightToLeft),
+    Tp.tuple(O.emptyOf<PrintDirection.PrintDirection>(), PrintDirection.LeftToRight)
   ])(
     "should create a valid PrintDirection from a FigHeader",
     ({ tuple: [headerValue, fontValue] }) => {
@@ -50,7 +41,7 @@ describe("PrintDirection", () => {
         E.chain_(newHeader, PrintDirection.fromHeader)
       )
 
-      expect(computed).toEqual(E.right(fontValue))
+      expect(computed).equals(E.right(fontValue))
     }
   )
 
@@ -69,10 +60,7 @@ describe("PrintDirection", () => {
   })
 
   it("should have its primitive values in the Figlet font header range", () => {
-    const values = [
-      new PrintDirection.LeftToRight().value,
-      new PrintDirection.RightToLeft().value
-    ]
+    const values = [PrintDirection.LeftToRight.value, PrintDirection.RightToLeft.value]
 
     expect(values).toEqual(goodValues)
   })

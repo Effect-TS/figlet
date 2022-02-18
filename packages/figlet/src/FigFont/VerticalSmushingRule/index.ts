@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -9,9 +8,9 @@ import { pipe } from "@effect-ts/core/Function"
 import * as O from "@effect-ts/core/Option"
 import { matchTag } from "@effect-ts/core/Utils"
 
-import type { FigHeader } from "../../FigHeader"
-import * as FullLayout from "../../FigHeader/FullLayout"
-import type { FigletResult } from "../../FigletException"
+import * as FullLayout from "../../FigHeader/FullLayout/index.js"
+import type { FigHeader } from "../../FigHeader/index.js"
+import type { FigletResult } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
@@ -37,7 +36,9 @@ export type VerticalSmushingRule =
  * Two sub-characters are smushed into a single sub-character if they are the
  * same. This rule does not smush hardblanks.
  */
-export class EqualCharacter extends Tagged("EqualCharacter")<{}> {}
+export interface EqualCharacter {
+  readonly _tag: "EqualCharacter"
+}
 
 /**
  * Represents application of "underscore" character vertical smushing.
@@ -47,7 +48,9 @@ export class EqualCharacter extends Tagged("EqualCharacter")<{}> {}
  * An underscore ("_") will be replaced by any of: "|", "/", "\", "[", "]",
  * "{", "}", "(", ")", "<" or ">".
  */
-export class Underscore extends Tagged("Underscore")<{}> {}
+export interface Underscore {
+  readonly _tag: "Underscore"
+}
 
 /**
  * Represents application of "hierarchy" character vertical smushing.
@@ -58,7 +61,9 @@ export class Underscore extends Tagged("Underscore")<{}> {}
  * When two smushing sub-characters are from different classes, the one from
  * the latter class will be used
  */
-export class Hierarchy extends Tagged("Hierarchy")<{}> {}
+export interface Hierarchy {
+  readonly _tag: "Hierarchy"
+}
 
 /**
  * Represents application of "horizontal line" character vertical smushing.
@@ -71,7 +76,9 @@ export class Hierarchy extends Tagged("Hierarchy")<{}> {}
  * while this rule smushes horizontal lines consisting of DIFFERENT
  * sub-characters.
  */
-export class HorizontalLine extends Tagged("HorizontalLine")<{}> {}
+export interface HorizontalLine {
+  readonly _tag: "HorizontalLine"
+}
 
 /**
  * Represents application of "vertical line" character vertical smushing.
@@ -87,13 +94,33 @@ export class HorizontalLine extends Tagged("HorizontalLine")<{}> {}
  * considered for smushing as soon as any such stacked vertical lines are
  * encountered.
  */
-export class VerticalLineSupersmushing extends Tagged(
-  "VerticalLineSupersmushing"
-)<{}> {}
+export interface VerticalLineSupersmushing {
+  readonly _tag: "VerticalLineSupersmushing"
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
+
+export const EqualCharacter: VerticalSmushingRule = {
+  _tag: "EqualCharacter"
+}
+
+export const Underscore: VerticalSmushingRule = {
+  _tag: "Underscore"
+}
+
+export const Hierarchy: VerticalSmushingRule = {
+  _tag: "Hierarchy"
+}
+
+export const HorizontalLine: VerticalSmushingRule = {
+  _tag: "HorizontalLine"
+}
+
+export const VerticalLineSupersmushing: VerticalSmushingRule = {
+  _tag: "VerticalLineSupersmushing"
+}
 
 /**
  * Interprets the header settings and returns the selected `VerticalSmushingRule`s.
@@ -116,11 +143,11 @@ export function fromHeader(
         A.collect(
           matchTag(
             {
-              EqualCharacterVerticalSmushing: () => O.some(new EqualCharacter()),
-              UnderscoreVerticalSmushing: () => O.some(new Underscore()),
-              HierarchyVerticalSmushing: () => O.some(new Hierarchy()),
-              HorizontalLineVerticalSmushing: () => O.some(new HorizontalLine()),
-              VerticalLineSupersmushing: () => O.some(new VerticalLineSupersmushing())
+              EqualCharacterVerticalSmushing: () => O.some(EqualCharacter),
+              UnderscoreVerticalSmushing: () => O.some(Underscore),
+              HierarchyVerticalSmushing: () => O.some(Hierarchy),
+              HorizontalLineVerticalSmushing: () => O.some(HorizontalLine),
+              VerticalLineSupersmushing: () => O.some(VerticalLineSupersmushing)
             },
             () => O.emptyOf<VerticalSmushingRule>()
           )

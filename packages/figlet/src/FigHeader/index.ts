@@ -12,11 +12,11 @@ import type { Option } from "@effect-ts/core/Option"
 import * as O from "@effect-ts/core/Option"
 import * as Structural from "@effect-ts/core/Structural"
 
-import * as PrintDirection from "../FigFont/PrintDirection"
-import type { FigletResult } from "../FigletException"
-import { FigHeaderError } from "../FigletException"
-import * as FullLayout from "./FullLayout"
-import * as OldLayout from "./OldLayout"
+import * as PrintDirection from "../FigFont/PrintDirection/index.js"
+import type { FigletResult } from "../FigletException/index.js"
+import { FigHeaderError } from "../FigletException/index.js"
+import * as FullLayout from "./FullLayout/index.js"
+import * as OldLayout from "./OldLayout/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

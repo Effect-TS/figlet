@@ -8,14 +8,14 @@ import * as Ord from "@effect-ts/core/Ord"
 import type { Show } from "@effect-ts/core/Show"
 import { makeShow } from "@effect-ts/core/Show"
 
-import type { FigCharacter } from "../FigCharacter"
-import * as FC from "../FigCharacter"
-import type { FigFont } from "../FigFont"
-import * as FF from "../FigFont"
-import type { SubColumns } from "../SubColumns"
-import * as SC from "../SubColumns"
-import type { SubLines } from "../SubLines"
-import * as SL from "../SubLines"
+import type { FigCharacter } from "../FigCharacter/index.js"
+import * as FC from "../FigCharacter/index.js"
+import type { FigFont } from "../FigFont/index.js"
+import * as FF from "../FigFont/index.js"
+import type { SubColumns } from "../SubColumns/index.js"
+import * as SC from "../SubColumns/index.js"
+import type { SubLines } from "../SubLines/index.js"
+import * as SL from "../SubLines/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

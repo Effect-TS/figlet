@@ -17,82 +17,73 @@ describe("VerticalLayout", () => {
       {
         input: "not present",
         headerValue: O.emptyOf<Chunk<FullLayout.FullLayout>>(),
-        fontValue: new VerticalLayout.FullHeight()
+        fontValue: VerticalLayout.FullHeight
       },
       {
         input: "an empty list",
         headerValue: O.some(C.empty<FullLayout.FullLayout>()),
-        fontValue: new VerticalLayout.FullHeight()
+        fontValue: VerticalLayout.FullHeight
       },
       {
         input: "VerticalFitting",
-        headerValue: O.some(C.single(new FullLayout.VerticalFitting())),
-        fontValue: new VerticalLayout.VerticalFitting()
+        headerValue: O.some(C.single(FullLayout.VerticalFitting)),
+        fontValue: VerticalLayout.VerticalFitting
       },
       {
         input: "VerticalSmushing",
-        headerValue: O.some(C.single(new FullLayout.VerticalSmushing())),
-        fontValue: new VerticalLayout.UniversalSmushing()
+        headerValue: O.some(C.single(FullLayout.VerticalSmushing)),
+        fontValue: VerticalLayout.UniversalSmushing
       },
       {
         input: "VerticalSmushing with EqualCharacterVerticalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.VerticalSmushing(),
-            new FullLayout.EqualCharacterVerticalSmushing()
+            FullLayout.VerticalSmushing,
+            FullLayout.EqualCharacterVerticalSmushing
           ])
         ),
-        fontValue: new VerticalLayout.ControlledSmushing({
-          rules: C.single(new VerticalSmushingRule.EqualCharacter())
-        })
+        fontValue: VerticalLayout.ControlledSmushing(
+          C.from([VerticalSmushingRule.EqualCharacter])
+        )
       },
       {
         input: "VerticalSmushing with UnderscoreVerticalSmushing",
         headerValue: O.some(
-          C.from([
-            new FullLayout.VerticalSmushing(),
-            new FullLayout.UnderscoreVerticalSmushing()
-          ])
+          C.from([FullLayout.VerticalSmushing, FullLayout.UnderscoreVerticalSmushing])
         ),
-        fontValue: new VerticalLayout.ControlledSmushing({
-          rules: C.single(new VerticalSmushingRule.Underscore())
-        })
+        fontValue: VerticalLayout.ControlledSmushing(
+          C.from([VerticalSmushingRule.Underscore])
+        )
       },
       {
         input: "VerticalSmushing with HierarchyVerticalSmushing",
         headerValue: O.some(
-          C.from([
-            new FullLayout.VerticalSmushing(),
-            new FullLayout.HierarchyVerticalSmushing()
-          ])
+          C.from([FullLayout.VerticalSmushing, FullLayout.HierarchyVerticalSmushing])
         ),
-        fontValue: new VerticalLayout.ControlledSmushing({
-          rules: C.single(new VerticalSmushingRule.Hierarchy())
-        })
+        fontValue: VerticalLayout.ControlledSmushing(
+          C.from([VerticalSmushingRule.Hierarchy])
+        )
       },
       {
         input: "VerticalSmushing with HorizontalLineVerticalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.VerticalSmushing(),
-            new FullLayout.HorizontalLineVerticalSmushing()
+            FullLayout.VerticalSmushing,
+            FullLayout.HorizontalLineVerticalSmushing
           ])
         ),
-        fontValue: new VerticalLayout.ControlledSmushing({
-          rules: C.single(new VerticalSmushingRule.HorizontalLine())
-        })
+        fontValue: VerticalLayout.ControlledSmushing(
+          C.from([VerticalSmushingRule.HorizontalLine])
+        )
       },
       {
         input: "VerticalSmushing with VerticalLineSupersmushing",
         headerValue: O.some(
-          C.from([
-            new FullLayout.VerticalSmushing(),
-            new FullLayout.VerticalLineSupersmushing()
-          ])
+          C.from([FullLayout.VerticalSmushing, FullLayout.VerticalLineSupersmushing])
         ),
-        fontValue: new VerticalLayout.ControlledSmushing({
-          rules: C.single(new VerticalSmushingRule.VerticalLineSupersmushing())
-        })
+        fontValue: VerticalLayout.ControlledSmushing(
+          C.from([VerticalSmushingRule.VerticalLineSupersmushing])
+        )
       }
     ])(
       "should return the correct values when fullLayout is $input",
@@ -103,15 +94,15 @@ describe("VerticalLayout", () => {
           E.chain(VerticalLayout.fromHeader)
         )
 
-        expect(computed).equals(E.right(fontValue))
+        expect(computed).toEqual(E.right(fontValue))
       }
     )
 
     it("should return multiple smushing rules in the output", () => {
       const input = C.from([
-        new FullLayout.VerticalSmushing(),
-        new FullLayout.UnderscoreVerticalSmushing(),
-        new FullLayout.HierarchyVerticalSmushing()
+        FullLayout.VerticalSmushing,
+        FullLayout.UnderscoreVerticalSmushing,
+        FullLayout.HierarchyVerticalSmushing
       ])
       const computed = pipe(
         header.toFigHeader(),
@@ -119,14 +110,11 @@ describe("VerticalLayout", () => {
         E.chain(VerticalLayout.fromHeader)
       )
 
-      expect(computed).equals(
+      expect(computed).toEqual(
         E.right(
-          new VerticalLayout.ControlledSmushing({
-            rules: C.from([
-              new VerticalSmushingRule.Underscore(),
-              new VerticalSmushingRule.Hierarchy()
-            ])
-          })
+          VerticalLayout.ControlledSmushing(
+            C.from([VerticalSmushingRule.Underscore, VerticalSmushingRule.Hierarchy])
+          )
         )
       )
     })

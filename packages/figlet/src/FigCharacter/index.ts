@@ -14,12 +14,12 @@ import * as O from "@effect-ts/core/Option"
 import * as String from "@effect-ts/core/String"
 import * as Structural from "@effect-ts/core/Structural"
 
-import type { FigHeader } from "../FigHeader"
-import type { FigletResult } from "../FigletException"
-import { FigCharacterError, FigHeaderError } from "../FigletException"
-import type { SubColumns } from "../SubColumns"
-import type { SubLines } from "../SubLines"
-import * as SL from "../SubLines"
+import type { FigHeader } from "../FigHeader/index.js"
+import type { FigletResult } from "../FigletException/index.js"
+import { FigCharacterError, FigHeaderError } from "../FigletException/index.js"
+import type { SubColumns } from "../SubColumns/index.js"
+import type { SubLines } from "../SubLines/index.js"
+import * as SL from "../SubLines/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

@@ -3,9 +3,9 @@
 import { Case } from "@effect-ts/core/Case"
 import type { Map } from "@effect-ts/core/Collections/Immutable/Map"
 
-import type { FigCharacter } from "../FigCharacter"
-import type { FigHeader } from "../FigHeader"
-import type { FigFontSettings } from "./Settings"
+import type { FigCharacter } from "../FigCharacter/index.js"
+import type { FigHeader } from "../FigHeader/index.js"
+import type { FigFontSettings } from "./Settings/index.js"
 
 // -----------------------------------------------------------------------------
 // Model

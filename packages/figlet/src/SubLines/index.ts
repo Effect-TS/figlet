@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Case } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -13,8 +12,8 @@ import { makeShow } from "@effect-ts/core/Show"
 import * as String from "@effect-ts/core/String"
 import * as Structural from "@effect-ts/core/Structural"
 
-import { escapeRegExp, transpose } from "../Internal"
-import { SubColumns } from "../SubColumns"
+import { escapeRegExp, transpose } from "../Internal/index.js"
+import type { SubColumns } from "../SubColumns/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
@@ -26,9 +25,9 @@ import { SubColumns } from "../SubColumns"
  *
  * @param value The collection of lines that compose the `SubLines`.
  */
-export class SubLines extends Case<{
+export interface SubLines {
   readonly value: Chunk<string>
-}> {}
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
@@ -38,7 +37,7 @@ export class SubLines extends Case<{
  * Create an instance of `SubLines` from a pure value.
  */
 export function fromValue(value: Chunk<string>): SubLines {
-  return new SubLines({ value })
+  return { value }
 }
 
 /**
@@ -47,7 +46,7 @@ export function fromValue(value: Chunk<string>): SubLines {
  * @param height The number of lines that compose this `SubLines` object.
  */
 export function zero(height: number): SubLines {
-  return new SubLines({ value: C.fill(height, () => "") })
+  return { value: C.fill(height, () => "") }
 }
 
 // -----------------------------------------------------------------------------
@@ -65,7 +64,7 @@ export function width(self: SubLines): number {
  * Transforms this `SubLines` into a `SubColumns`.
  */
 export function toSubcolumns(self: SubLines): SubColumns {
-  return new SubColumns({
+  return {
     value: pipe(
       C.toArray(self.value),
       A.map(String.split("")),
@@ -73,7 +72,7 @@ export function toSubcolumns(self: SubLines): SubColumns {
       A.map(A.join("")),
       C.from
     )
-  })
+  }
 }
 
 /**

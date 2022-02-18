@@ -53,7 +53,7 @@ describe("Client", () => {
       T.gen(function* (_) {
         const fonts = yield* _(FigletClient.internalFonts)
         const result = yield* _(
-          T.result(T.collectAllPar(C.map_(fonts, FigletClient.loadFontInternal)))
+          pipe(C.map_(fonts, FigletClient.loadFontInternal), T.collectAllPar, T.result)
         )
 
         expect(Ex.succeeded(Ex.untraced(result))).toBeTruthy()

@@ -26,7 +26,7 @@ describe("FigFont", () => {
         C.concat_(C.range(32, 126), C.from([196, 214, 220, 223, 228, 246, 252])),
         String.fromCharCode
       )
-      expect(FigFont.requiredCharacters).equals(requiredCharacters)
+      expect(FigFont.requiredCharacters).toEqual(requiredCharacters)
     })
   })
 

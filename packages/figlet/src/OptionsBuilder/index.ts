@@ -10,21 +10,21 @@ import type { Has } from "@effect-ts/core/Has"
 import type { Option } from "@effect-ts/core/Option"
 import * as O from "@effect-ts/core/Option"
 
-import type { FigFont } from "../FigFont"
-import * as FigletClient from "../FigletClient"
-import type { FigletException } from "../FigletException"
-import type { Figure } from "../Figure"
-import * as Fig from "../Figure"
-import type { InternalFont } from "../Internal"
-import { RenderOptions } from "../RenderOptions"
-import type { HorizontalLayout } from "../RenderOptions/HorizontalLayout"
-import * as HL from "../RenderOptions/HorizontalLayout"
-import type { Justification } from "../RenderOptions/Justification"
-import * as J from "../RenderOptions/Justification"
-import type { PrintDirection } from "../RenderOptions/PrintDirection"
-import * as PD from "../RenderOptions/PrintDirection"
-import type { BuilderAction } from "./BuilderAction"
-import * as Actions from "./BuilderAction"
+import type { FigFont } from "../FigFont/index.js"
+import * as FigletClient from "../FigletClient/index.js"
+import type { FigletException } from "../FigletException/index.js"
+import type { Figure } from "../Figure/index.js"
+import * as Fig from "../Figure/index.js"
+import type { InternalFont } from "../Internal/index.js"
+import type { HorizontalLayout } from "../RenderOptions/HorizontalLayout/index.js"
+import * as HL from "../RenderOptions/HorizontalLayout/index.js"
+import { RenderOptions } from "../RenderOptions/index.js"
+import type { Justification } from "../RenderOptions/Justification/index.js"
+import * as J from "../RenderOptions/Justification/index.js"
+import type { PrintDirection } from "../RenderOptions/PrintDirection/index.js"
+import * as PD from "../RenderOptions/PrintDirection/index.js"
+import type { BuilderAction } from "./BuilderAction/index.js"
+import * as Actions from "./BuilderAction/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
@@ -94,10 +94,10 @@ export function buildData(
 ): BuildData {
   return new BuildData({
     font: O.none,
-    horizontalLayout: new HL.FontDefault(),
-    justification: new J.FontDefault(),
+    horizontalLayout: HL.FontDefault,
+    justification: J.FontDefault,
     maxWidth: O.none,
-    printDirection: new PD.FontDefault(),
+    printDirection: PD.FontDefault,
     text: "",
     ...params
   })
@@ -335,13 +335,13 @@ export function toBuildData(
 
           // Horizontal Layout
           DefaultHorizontalLayout: () =>
-            T.succeed(data.copy({ horizontalLayout: new HL.FontDefault() })),
+            T.succeed(data.copy({ horizontalLayout: HL.FontDefault })),
           SetHorizontalLayout: (_) =>
             T.succeed(data.copy({ horizontalLayout: _.layout })),
 
           // Justification
           DefaultJustification: () =>
-            T.succeed(data.copy({ justification: new J.FontDefault() })),
+            T.succeed(data.copy({ justification: J.FontDefault })),
           SetJustification: (_) =>
             T.succeed(data.copy({ justification: _.justification })),
 
@@ -351,7 +351,7 @@ export function toBuildData(
 
           // Print Direction
           DefaultPrintDirection: () =>
-            T.succeed(data.copy({ printDirection: new PD.FontDefault() })),
+            T.succeed(data.copy({ printDirection: PD.FontDefault })),
           SetPrintDirection: (_) =>
             T.succeed(data.copy({ printDirection: _.direction })),
 

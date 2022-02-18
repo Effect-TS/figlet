@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as NA from "@effect-ts/core/Collections/Immutable/NonEmptyArray"
@@ -9,8 +8,8 @@ import type { Equal } from "@effect-ts/core/Equal"
 import { makeEqual } from "@effect-ts/core/Equal"
 import * as O from "@effect-ts/core/Option"
 
-import type { FigletResult } from "../../FigletException"
-import { FigHeaderError } from "../../FigletException"
+import type { FigletResult } from "../../FigletException/index.js"
+import { FigHeaderError } from "../../FigletException/index.js"
 
 // -----------------------------------------------------------------------------
 // Model
@@ -39,98 +38,172 @@ export type FullLayout =
   | VerticalFitting
   | VerticalSmushing
 
-export class EqualCharacterHorizontalSmushing extends Tagged(
-  "EqualCharacterHorizontalSmushing"
-)<{}> {
-  value = 1
+export interface EqualCharacterHorizontalSmushing {
+  readonly _tag: "EqualCharacterHorizontalSmushing"
+  readonly value: 1
 }
 
-export class UnderscoreHorizontalSmushing extends Tagged(
-  "UnderscoreHorizontalSmushing"
-)<{}> {
-  value = 2
+export interface UnderscoreHorizontalSmushing {
+  readonly _tag: "UnderscoreHorizontalSmushing"
+  readonly value: 2
 }
 
-export class HierarchyHorizontalSmushing extends Tagged(
-  "HierarchyHorizontalSmushing"
-)<{}> {
-  value = 4
+export interface HierarchyHorizontalSmushing {
+  readonly _tag: "HierarchyHorizontalSmushing"
+  readonly value: 4
 }
 
-export class OppositePairHorizontalSmushing extends Tagged(
-  "OppositePairHorizontalSmushing"
-)<{}> {
-  value = 8
+export interface OppositePairHorizontalSmushing {
+  readonly _tag: "OppositePairHorizontalSmushing"
+  readonly value: 8
 }
 
-export class BigXHorizontalSmushing extends Tagged("BigXHorizontalSmushing")<{}> {
-  value = 16
+export interface BigXHorizontalSmushing {
+  readonly _tag: "BigXHorizontalSmushing"
+  readonly value: 16
 }
 
-export class HardblankHorizontalSmushing extends Tagged(
-  "HardblankHorizontalSmushing"
-)<{}> {
-  value = 32
+export interface HardblankHorizontalSmushing {
+  readonly _tag: "HardblankHorizontalSmushing"
+  readonly value: 32
 }
 
-export class HorizontalFitting extends Tagged("HorizontalFitting")<{}> {
-  value = 64
+export interface HorizontalFitting {
+  readonly _tag: "HorizontalFitting"
+  readonly value: 64
 }
 
-export class HorizontalSmushing extends Tagged("HorizontalSmushing")<{}> {
-  value = 128
+export interface HorizontalSmushing {
+  readonly _tag: "HorizontalSmushing"
+  readonly value: 128
 }
 
-export class EqualCharacterVerticalSmushing extends Tagged(
-  "EqualCharacterVerticalSmushing"
-)<{}> {
-  value = 256
+export interface EqualCharacterVerticalSmushing {
+  readonly _tag: "EqualCharacterVerticalSmushing"
+  readonly value: 256
 }
 
-export class UnderscoreVerticalSmushing extends Tagged(
-  "UnderscoreVerticalSmushing"
-)<{}> {
-  value = 512
+export interface UnderscoreVerticalSmushing {
+  readonly _tag: "UnderscoreVerticalSmushing"
+  readonly value: 512
 }
 
-export class HierarchyVerticalSmushing extends Tagged("HierarchyVerticalSmushing")<{}> {
-  value = 1024
+export interface HierarchyVerticalSmushing {
+  readonly _tag: "HierarchyVerticalSmushing"
+  readonly value: 1024
 }
 
-export class HorizontalLineVerticalSmushing extends Tagged(
-  "HorizontalLineVerticalSmushing"
-)<{}> {
-  value = 2048
+export interface HorizontalLineVerticalSmushing {
+  readonly _tag: "HorizontalLineVerticalSmushing"
+  readonly value: 2048
 }
 
-export class VerticalLineSupersmushing extends Tagged("VerticalLineSupersmushing")<{}> {
-  value = 4096
+export interface VerticalLineSupersmushing {
+  readonly _tag: "VerticalLineSupersmushing"
+  readonly value: 4096
 }
 
-export class VerticalFitting extends Tagged("VerticalFitting")<{}> {
-  value = 8192
+export interface VerticalFitting {
+  readonly _tag: "VerticalFitting"
+  readonly value: 8192
 }
 
-export class VerticalSmushing extends Tagged("VerticalSmushing")<{}> {
-  value = 16384
+export interface VerticalSmushing {
+  readonly _tag: "VerticalSmushing"
+  readonly value: 16384
+}
+
+export const EqualCharacterHorizontalSmushing: FullLayout = {
+  _tag: "EqualCharacterHorizontalSmushing",
+  value: 1
+}
+
+export const UnderscoreHorizontalSmushing: FullLayout = {
+  _tag: "UnderscoreHorizontalSmushing",
+  value: 2
+}
+
+export const HierarchyHorizontalSmushing: FullLayout = {
+  _tag: "HierarchyHorizontalSmushing",
+  value: 4
+}
+
+export const OppositePairHorizontalSmushing: FullLayout = {
+  _tag: "OppositePairHorizontalSmushing",
+  value: 8
+}
+
+export const BigXHorizontalSmushing: FullLayout = {
+  _tag: "BigXHorizontalSmushing",
+  value: 16
+}
+
+export const HardblankHorizontalSmushing: FullLayout = {
+  _tag: "HardblankHorizontalSmushing",
+  value: 32
+}
+
+export const HorizontalFitting: FullLayout = {
+  _tag: "HorizontalFitting",
+  value: 64
+}
+
+export const HorizontalSmushing: FullLayout = {
+  _tag: "HorizontalSmushing",
+  value: 128
+}
+
+export const EqualCharacterVerticalSmushing: FullLayout = {
+  _tag: "EqualCharacterVerticalSmushing",
+  value: 256
+}
+
+export const UnderscoreVerticalSmushing: FullLayout = {
+  _tag: "UnderscoreVerticalSmushing",
+  value: 512
+}
+
+export const HierarchyVerticalSmushing: FullLayout = {
+  _tag: "HierarchyVerticalSmushing",
+  value: 1024
+}
+
+export const HorizontalLineVerticalSmushing: FullLayout = {
+  _tag: "HorizontalLineVerticalSmushing",
+  value: 2048
+}
+
+export const VerticalLineSupersmushing: FullLayout = {
+  _tag: "VerticalLineSupersmushing",
+  value: 4096
+}
+
+export const VerticalFitting: FullLayout = {
+  _tag: "VerticalFitting",
+  value: 8192
+}
+
+export const VerticalSmushing: FullLayout = {
+  _tag: "VerticalSmushing",
+  value: 16384
 }
 
 export const values = C.from([
-  new EqualCharacterHorizontalSmushing(),
-  new UnderscoreHorizontalSmushing(),
-  new HierarchyHorizontalSmushing(),
-  new OppositePairHorizontalSmushing(),
-  new BigXHorizontalSmushing(),
-  new HardblankHorizontalSmushing(),
-  new HorizontalFitting(),
-  new HorizontalSmushing(),
-  new EqualCharacterVerticalSmushing(),
-  new UnderscoreVerticalSmushing(),
-  new HierarchyVerticalSmushing(),
-  new HorizontalLineVerticalSmushing(),
-  new VerticalLineSupersmushing(),
-  new VerticalFitting(),
-  new VerticalSmushing()
+  EqualCharacterHorizontalSmushing,
+  UnderscoreHorizontalSmushing,
+  HierarchyHorizontalSmushing,
+  OppositePairHorizontalSmushing,
+  BigXHorizontalSmushing,
+  HardblankHorizontalSmushing,
+  HorizontalFitting,
+  HorizontalSmushing,
+  EqualCharacterVerticalSmushing,
+  UnderscoreVerticalSmushing,
+  HierarchyVerticalSmushing,
+  HorizontalLineVerticalSmushing,
+  VerticalLineSupersmushing,
+  VerticalFitting,
+  VerticalSmushing
 ])
 
 // -----------------------------------------------------------------------------
@@ -165,23 +238,23 @@ export function fromValue(requestedSettings: number): FigletResult<Chunk<FullLay
  * The settings that correspond to horizontal smushing.
  */
 export const horizontalSmushingRules: Chunk<FullLayout> = C.from([
-  new EqualCharacterHorizontalSmushing(),
-  new UnderscoreHorizontalSmushing(),
-  new HierarchyHorizontalSmushing(),
-  new OppositePairHorizontalSmushing(),
-  new BigXHorizontalSmushing(),
-  new HardblankHorizontalSmushing()
+  EqualCharacterHorizontalSmushing,
+  UnderscoreHorizontalSmushing,
+  HierarchyHorizontalSmushing,
+  OppositePairHorizontalSmushing,
+  BigXHorizontalSmushing,
+  HardblankHorizontalSmushing
 ])
 
 /**
  * The settings that correspond to vertical smushing.
  */
 export const verticalSmushingRules: Chunk<FullLayout> = C.from([
-  new EqualCharacterVerticalSmushing(),
-  new UnderscoreVerticalSmushing(),
-  new HierarchyVerticalSmushing(),
-  new HorizontalLineVerticalSmushing(),
-  new VerticalLineSupersmushing()
+  EqualCharacterVerticalSmushing,
+  UnderscoreVerticalSmushing,
+  HierarchyVerticalSmushing,
+  HorizontalLineVerticalSmushing,
+  VerticalLineSupersmushing
 ])
 
 // -----------------------------------------------------------------------------

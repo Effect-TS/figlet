@@ -18,17 +18,17 @@ import type { Byte } from "@effect-ts/node/Byte"
 import * as NodeJSFileSystem from "fs"
 import * as NodeJSPath from "path"
 
-import type { FigFont } from "../FigFont"
-import * as FF from "../FigFont"
-import type { FigletException } from "../FigletException"
-import { FigletFileError } from "../FigletException"
-import type { Figure } from "../Figure"
-import * as Fig from "../Figure"
-import { FontFileReader } from "../FontFileReader"
-import type { InternalFont } from "../Internal"
-import { splitLines, utf8Decode } from "../Internal/Transducers"
-import * as Rendering from "../Rendering"
-import type { RenderOptions } from "../RenderOptions"
+import type { FigFont } from "../FigFont/index.js"
+import * as FF from "../FigFont/index.js"
+import type { FigletException } from "../FigletException/index.js"
+import { FigletFileError } from "../FigletException/index.js"
+import type { Figure } from "../Figure/index.js"
+import * as Fig from "../Figure/index.js"
+import { FontFileReader } from "../FontFileReader/index.js"
+import type { InternalFont } from "../Internal/index.js"
+import { splitLines, utf8Decode } from "../Internal/Transducers/index.js"
+import * as Rendering from "../Rendering/index.js"
+import type { RenderOptions } from "../RenderOptions/index.js"
 
 // -----------------------------------------------------------------------------
 // Figlet Client
@@ -41,30 +41,37 @@ export const makeFigletClient = T.gen(function* (_) {
   const { read } = yield* _(FontFileReader)
 
   const fontsPath = NodeJSPath.join(__dirname, "..", "Internal", "fonts")
-  const fontFiles = yield* _(listFontFiles(fontsPath))
 
   return service({
     defaultFont: "standard" as const,
     defaultMaxWidth: 80,
     internalFonts: pipe(
-      fontFiles,
-      C.map((file) => NodeJSPath.basename(file).replace(".flf", "") as InternalFont)
+      listFontFiles(fontsPath),
+      T.map(
+        C.map((file) => NodeJSPath.basename(file).replace(".flf", "") as InternalFont)
+      )
     ),
     loadFont: (path: string) => read(path, createFigFont),
     loadFontInternal: (name: InternalFont) =>
       pipe(
-        fontFiles,
-        C.find((file) => NodeJSPath.basename(file) === `${name}.flf`),
-        O.fold(
-          () =>
-            T.fail(
-              NA.single(
-                new FigletFileError({
-                  message: `Unable to locate internal font file for '${name}'`
-                })
-              )
-            ),
-          (filepath) => read(filepath, createFigFont)
+        listFontFiles(fontsPath),
+        T.mapError(NA.single),
+        T.chain((files) =>
+          pipe(
+            files,
+            C.find((file) => NodeJSPath.basename(file) === `${name}.flf`),
+            O.fold(
+              () =>
+                T.fail(
+                  NA.single(
+                    new FigletFileError({
+                      message: `Unable to locate internal font file for '${name}'`
+                    })
+                  )
+                ),
+              (filepath) => read(filepath, createFigFont)
+            )
+          )
         )
       )
   })
@@ -84,11 +91,11 @@ export const {
   internalFonts,
   loadFont,
   loadFontInternal
-} = T.deriveLifted(FigletClient)(["loadFont", "loadFontInternal"], [] as never, [
-  "defaultFont",
-  "defaultMaxWidth",
-  "internalFonts"
-])
+} = T.deriveLifted(FigletClient)(
+  ["loadFont", "loadFontInternal"],
+  ["internalFonts"],
+  ["defaultFont", "defaultMaxWidth"]
+)
 
 function createFigFont(
   file: string,

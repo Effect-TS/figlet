@@ -13,9 +13,9 @@ pipe(
   OptionsBuilder.builder(),
   OptionsBuilder.withMaxWidth(140),
   OptionsBuilder.withInternalFont("slant"),
-  OptionsBuilder.withHorizontalLayout(new HorizontalLayout.HorizontalFitting()),
-  OptionsBuilder.withJustification(new Justification.FontDefault()),
-  OptionsBuilder.withPrintDirection(new PrintDirection.LeftToRight()),
+  OptionsBuilder.withHorizontalLayout(HorizontalLayout.HorizontalFitting),
+  OptionsBuilder.withJustification(Justification.FontDefault),
+  OptionsBuilder.withPrintDirection(PrintDirection.LeftToRight),
   OptionsBuilder.text("Hello, World!"),
   OptionsBuilder.renderToString,
   T.chain((output) =>

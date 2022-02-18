@@ -69,8 +69,8 @@ describe("FullLayout", () => {
 
     expect(computed).toEqual(
       E.right([
-        new FullLayout.EqualCharacterHorizontalSmushing(),
-        new FullLayout.UnderscoreHorizontalSmushing()
+        FullLayout.EqualCharacterHorizontalSmushing,
+        FullLayout.UnderscoreHorizontalSmushing
       ])
     )
   })

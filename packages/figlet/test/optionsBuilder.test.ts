@@ -119,12 +119,12 @@ describe("OptionsBuilder", () => {
         )
         const computed = yield* _(builder)
 
-        expect(computed.horizontalLayout).equals(new HorizontalLayout.FontDefault())
+        expect(computed.horizontalLayout).equals(HorizontalLayout.FontDefault)
       }))
 
     it("should set a horizontal layout", () =>
       T.gen(function* (_) {
-        const expected = new HorizontalLayout.HorizontalFitting()
+        const expected = HorizontalLayout.HorizontalFitting
         const builder = pipe(
           OptionsBuilder.builder(),
           OptionsBuilder.withHorizontalLayout(expected),
@@ -137,12 +137,10 @@ describe("OptionsBuilder", () => {
 
     it("should use the latest horizontal layout", () =>
       T.gen(function* (_) {
-        const expected = new HorizontalLayout.HorizontalFitting()
+        const expected = HorizontalLayout.HorizontalFitting
         const builder = pipe(
           OptionsBuilder.builder(),
-          OptionsBuilder.withHorizontalLayout(
-            new HorizontalLayout.HorizontalSmushing()
-          ),
+          OptionsBuilder.withHorizontalLayout(HorizontalLayout.HorizontalSmushing),
           OptionsBuilder.withDefaultHorizontalLayout,
           OptionsBuilder.withHorizontalLayout(expected),
           OptionsBuilder.toRenderOptions
@@ -206,12 +204,12 @@ describe("OptionsBuilder", () => {
         )
         const computed = yield* _(builder)
 
-        expect(computed.justification).equals(new Justification.FontDefault())
+        expect(computed.justification).equals(Justification.FontDefault)
       }))
 
     it("should set a justification", () =>
       T.gen(function* (_) {
-        const expected = new Justification.Center()
+        const expected = Justification.Center
         const builder = pipe(
           OptionsBuilder.builder(),
           OptionsBuilder.withJustification(expected),
@@ -224,10 +222,10 @@ describe("OptionsBuilder", () => {
 
     it("should use the latest justification", () =>
       T.gen(function* (_) {
-        const expected = new Justification.Center()
+        const expected = Justification.Center
         const builder = pipe(
           OptionsBuilder.builder(),
-          OptionsBuilder.withJustification(new Justification.FlushRight()),
+          OptionsBuilder.withJustification(Justification.FlushRight),
           OptionsBuilder.withDefaultJustification,
           OptionsBuilder.withJustification(expected),
           OptionsBuilder.toRenderOptions
@@ -248,12 +246,12 @@ describe("OptionsBuilder", () => {
         )
         const computed = yield* _(builder)
 
-        expect(computed.printDirection).equals(new PrintDirection.FontDefault())
+        expect(computed.printDirection).equals(PrintDirection.FontDefault)
       }))
 
     it("should set a print direction", () =>
       T.gen(function* (_) {
-        const expected = new PrintDirection.RightToLeft()
+        const expected = PrintDirection.RightToLeft
         const builder = pipe(
           OptionsBuilder.builder(),
           OptionsBuilder.withPrintDirection(expected),
@@ -266,10 +264,10 @@ describe("OptionsBuilder", () => {
 
     it("should use the latest print direction", () =>
       T.gen(function* (_) {
-        const expected = new PrintDirection.RightToLeft()
+        const expected = PrintDirection.RightToLeft
         const builder = pipe(
           OptionsBuilder.builder(),
-          OptionsBuilder.withPrintDirection(new PrintDirection.LeftToRight()),
+          OptionsBuilder.withPrintDirection(PrintDirection.LeftToRight),
           OptionsBuilder.withDefaultPrintDirection,
           OptionsBuilder.withPrintDirection(expected),
           OptionsBuilder.toRenderOptions
