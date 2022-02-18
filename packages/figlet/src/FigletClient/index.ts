@@ -41,30 +41,37 @@ export const makeFigletClient = T.gen(function* (_) {
   const { read } = yield* _(FontFileReader)
 
   const fontsPath = NodeJSPath.join(__dirname, "..", "Internal", "fonts")
-  const fontFiles = yield* _(listFontFiles(fontsPath))
 
   return service({
     defaultFont: "standard" as const,
     defaultMaxWidth: 80,
     internalFonts: pipe(
-      fontFiles,
-      C.map((file) => NodeJSPath.basename(file).replace(".flf", "") as InternalFont)
+      listFontFiles(fontsPath),
+      T.map(
+        C.map((file) => NodeJSPath.basename(file).replace(".flf", "") as InternalFont)
+      )
     ),
     loadFont: (path: string) => read(path, createFigFont),
     loadFontInternal: (name: InternalFont) =>
       pipe(
-        fontFiles,
-        C.find((file) => NodeJSPath.basename(file) === `${name}.flf`),
-        O.fold(
-          () =>
-            T.fail(
-              NA.single(
-                new FigletFileError({
-                  message: `Unable to locate internal font file for '${name}'`
-                })
-              )
-            ),
-          (filepath) => read(filepath, createFigFont)
+        listFontFiles(fontsPath),
+        T.mapError(NA.single),
+        T.chain((files) =>
+          pipe(
+            files,
+            C.find((file) => NodeJSPath.basename(file) === `${name}.flf`),
+            O.fold(
+              () =>
+                T.fail(
+                  NA.single(
+                    new FigletFileError({
+                      message: `Unable to locate internal font file for '${name}'`
+                    })
+                  )
+                ),
+              (filepath) => read(filepath, createFigFont)
+            )
+          )
         )
       )
   })
@@ -84,11 +91,11 @@ export const {
   internalFonts,
   loadFont,
   loadFontInternal
-} = T.deriveLifted(FigletClient)(["loadFont", "loadFontInternal"], [] as never, [
-  "defaultFont",
-  "defaultMaxWidth",
-  "internalFonts"
-])
+} = T.deriveLifted(FigletClient)(
+  ["loadFont", "loadFontInternal"],
+  ["internalFonts"],
+  ["defaultFont", "defaultMaxWidth"]
+)
 
 function createFigFont(
   file: string,

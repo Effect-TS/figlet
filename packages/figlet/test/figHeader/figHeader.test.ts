@@ -248,7 +248,7 @@ describe("FigHeader", () => {
         E.map((_) => _.printDirection)
       )
 
-      expect(computed).toEqual(
+      expect(computed).equals(
         pipe(
           PrintDirection.fromValue(Number.parseInt(header.printDirection)),
           E.map(O.some)

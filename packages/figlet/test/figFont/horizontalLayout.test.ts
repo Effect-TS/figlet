@@ -17,48 +17,48 @@ describe("HorizontalLayout", () => {
   describe("fromOldLayout", () => {
     it.concurrent.each([
       {
-        headerValue: new OldLayout.FullWidth(),
-        fontValue: new HorizontalLayout.FullWidth()
+        headerValue: OldLayout.FullWidth,
+        fontValue: HorizontalLayout.FullWidth
       },
       {
-        headerValue: new OldLayout.HorizontalFitting(),
-        fontValue: new HorizontalLayout.HorizontalFitting()
+        headerValue: OldLayout.HorizontalFitting,
+        fontValue: HorizontalLayout.HorizontalFitting
       },
       {
-        headerValue: new OldLayout.EqualCharacterSmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.EqualCharacter())
-        })
+        headerValue: OldLayout.EqualCharacterSmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.EqualCharacter])
+        )
       },
       {
-        headerValue: new OldLayout.UnderscoreSmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.Underscore())
-        })
+        headerValue: OldLayout.UnderscoreSmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.Underscore])
+        )
       },
       {
-        headerValue: new OldLayout.HierarchySmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.Hierarchy())
-        })
+        headerValue: OldLayout.HierarchySmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.Hierarchy])
+        )
       },
       {
-        headerValue: new OldLayout.OppositePairSmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.OppositePair())
-        })
+        headerValue: OldLayout.OppositePairSmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.OppositePair])
+        )
       },
       {
-        headerValue: new OldLayout.BigXSmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.BigX())
-        })
+        headerValue: OldLayout.BigXSmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.BigX])
+        )
       },
       {
-        headerValue: new OldLayout.HardblankSmushing(),
-        fontValue: new HorizontalLayout.ControlledSmushing({
-          rules: C.single(new HorizontalSmushingRule.Hardblank())
-        })
+        headerValue: OldLayout.HardblankSmushing,
+        fontValue: HorizontalLayout.ControlledSmushing(
+          C.from([HorizontalSmushingRule.Hardblank])
+        )
       }
     ])(
       "should return the correct values when oldLayout is $headerValue._tag",
@@ -69,14 +69,14 @@ describe("HorizontalLayout", () => {
           E.chain(HorizontalLayout.fromOldLayout)
         )
 
-        expect(computed).equals(E.right(fontValue))
+        expect(computed).toEqual(E.right(fontValue))
       }
     )
 
     it("should return multiple smushing rules in the output", () => {
       const oldLayout = C.from([
-        new OldLayout.EqualCharacterSmushing(),
-        new OldLayout.UnderscoreSmushing()
+        OldLayout.EqualCharacterSmushing,
+        OldLayout.UnderscoreSmushing
       ])
       const computed = pipe(
         header.toFigHeader(),
@@ -84,23 +84,20 @@ describe("HorizontalLayout", () => {
         E.chain(HorizontalLayout.fromOldLayout)
       )
 
-      expect(computed).equals(
+      expect(computed).toEqual(
         E.right(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.from([
-              new HorizontalSmushingRule.EqualCharacter(),
-              new HorizontalSmushingRule.Underscore()
+          HorizontalLayout.ControlledSmushing(
+            C.from([
+              HorizontalSmushingRule.EqualCharacter,
+              HorizontalSmushingRule.Underscore
             ])
-          })
+          )
         )
       )
     })
 
     it("should fail when given FullWidth with a smushing rule", () => {
-      const oldLayout = C.from([
-        new OldLayout.FullWidth(),
-        new OldLayout.UnderscoreSmushing()
-      ])
+      const oldLayout = C.from([OldLayout.FullWidth, OldLayout.UnderscoreSmushing])
       const computed = pipe(
         header.toFigHeader(),
         E.map((_) => _.copy({ oldLayout })),
@@ -117,8 +114,8 @@ describe("HorizontalLayout", () => {
 
     it("should fail when given HorizontalFitting with a smushing rule", () => {
       const oldLayout = C.from([
-        new OldLayout.HorizontalFitting(),
-        new OldLayout.UnderscoreSmushing()
+        OldLayout.HorizontalFitting,
+        OldLayout.UnderscoreSmushing
       ])
       const computed = pipe(
         header.toFigHeader(),
@@ -145,100 +142,95 @@ describe("HorizontalLayout", () => {
       {
         input: "empty",
         headerValue: O.some(C.empty<FullLayout.FullLayout>()),
-        fontValue: O.some(new HorizontalLayout.FullWidth())
+        fontValue: O.some(HorizontalLayout.FullWidth)
       },
       {
         input: "HorizontalFitting",
-        headerValue: O.some(C.single(new FullLayout.HorizontalFitting())),
-        fontValue: O.some(new HorizontalLayout.HorizontalFitting())
+        headerValue: O.some(C.single(FullLayout.HorizontalFitting)),
+        fontValue: O.some(HorizontalLayout.HorizontalFitting)
       },
       {
         input: "HorizontalSmushing",
-        headerValue: O.some(C.single(new FullLayout.HorizontalSmushing())),
-        fontValue: O.some(new HorizontalLayout.UniversalSmushing())
+        headerValue: O.some(C.single(FullLayout.HorizontalSmushing)),
+        fontValue: O.some(HorizontalLayout.UniversalSmushing)
       },
       {
         input: "HorizontalSmushing with EqualCharacterHorizontalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.EqualCharacterHorizontalSmushing()
+            FullLayout.HorizontalSmushing,
+            FullLayout.EqualCharacterHorizontalSmushing
           ])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.EqualCharacter())
-          })
+          HorizontalLayout.ControlledSmushing(
+            C.from([HorizontalSmushingRule.EqualCharacter])
+          )
         )
       },
       {
         input: "HorizontalSmushing with UnderscoreHorizontalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.UnderscoreHorizontalSmushing()
+            FullLayout.HorizontalSmushing,
+            FullLayout.UnderscoreHorizontalSmushing
           ])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.Underscore())
-          })
+          HorizontalLayout.ControlledSmushing(
+            C.from([HorizontalSmushingRule.Underscore])
+          )
         )
       },
       {
         input: "HorizontalSmushing with HierarchyHorizontalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.HierarchyHorizontalSmushing()
+            FullLayout.HorizontalSmushing,
+            FullLayout.HierarchyHorizontalSmushing
           ])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.Hierarchy())
-          })
+          HorizontalLayout.ControlledSmushing(
+            C.from([HorizontalSmushingRule.Hierarchy])
+          )
         )
       },
       {
         input: "HorizontalSmushing with OppositePairHorizontalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.OppositePairHorizontalSmushing()
+            FullLayout.HorizontalSmushing,
+            FullLayout.OppositePairHorizontalSmushing
           ])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.OppositePair())
-          })
+          HorizontalLayout.ControlledSmushing(
+            C.from([HorizontalSmushingRule.OppositePair])
+          )
         )
       },
       {
         input: "HorizontalSmushing with BigXHorizontalSmushing",
         headerValue: O.some(
-          C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.BigXHorizontalSmushing()
-          ])
+          C.from([FullLayout.HorizontalSmushing, FullLayout.BigXHorizontalSmushing])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.BigX())
-          })
+          HorizontalLayout.ControlledSmushing(C.from([HorizontalSmushingRule.BigX]))
         )
       },
       {
         input: "HorizontalSmushing with HardblankHorizontalSmushing",
         headerValue: O.some(
           C.from([
-            new FullLayout.HorizontalSmushing(),
-            new FullLayout.HardblankHorizontalSmushing()
+            FullLayout.HorizontalSmushing,
+            FullLayout.HardblankHorizontalSmushing
           ])
         ),
         fontValue: O.some(
-          new HorizontalLayout.ControlledSmushing({
-            rules: C.single(new HorizontalSmushingRule.Hardblank())
-          })
+          HorizontalLayout.ControlledSmushing(
+            C.from([HorizontalSmushingRule.Hardblank])
+          )
         )
       }
     ])(
@@ -250,15 +242,15 @@ describe("HorizontalLayout", () => {
           E.chain(HorizontalLayout.fromFullLayout)
         )
 
-        expect(computed).equals(E.right(fontValue))
+        expect(computed).toEqual(E.right(fontValue))
       }
     )
 
     it("should return multiple smushing rules in the output", () => {
       const input = C.from([
-        new FullLayout.HorizontalSmushing(),
-        new FullLayout.EqualCharacterHorizontalSmushing(),
-        new FullLayout.BigXHorizontalSmushing()
+        FullLayout.HorizontalSmushing,
+        FullLayout.EqualCharacterHorizontalSmushing,
+        FullLayout.BigXHorizontalSmushing
       ])
       const computed = pipe(
         header.toFigHeader(),
@@ -266,15 +258,15 @@ describe("HorizontalLayout", () => {
         E.chain(HorizontalLayout.fromFullLayout)
       )
 
-      expect(computed).equals(
+      expect(computed).toEqual(
         E.right(
           O.some(
-            new HorizontalLayout.ControlledSmushing({
-              rules: C.from([
-                new HorizontalSmushingRule.EqualCharacter(),
-                new HorizontalSmushingRule.BigX()
+            HorizontalLayout.ControlledSmushing(
+              C.from([
+                HorizontalSmushingRule.EqualCharacter,
+                HorizontalSmushingRule.BigX
               ])
-            })
+            )
           )
         )
       )
@@ -283,19 +275,19 @@ describe("HorizontalLayout", () => {
 
   describe("fromHeader", () => {
     it("should use values from fullLayout when present", () => {
-      const oldLayout = C.single(new OldLayout.FullWidth())
-      const fullLayout = O.some(C.single(new FullLayout.HorizontalFitting()))
+      const oldLayout = C.single(OldLayout.FullWidth)
+      const fullLayout = O.some(C.single(FullLayout.HorizontalFitting))
       const computed = pipe(
         header.toFigHeader(),
         E.map((_) => _.copy({ oldLayout, fullLayout })),
         E.chain(HorizontalLayout.fromHeader)
       )
 
-      expect(computed).equals(E.right(new HorizontalLayout.HorizontalFitting()))
+      expect(computed).toEqual(E.right(HorizontalLayout.HorizontalFitting))
     })
 
     it("should use values from oldLayout when fullLayout is not present", () => {
-      const oldLayout = C.single(new OldLayout.FullWidth())
+      const oldLayout = C.single(OldLayout.FullWidth)
       const fullLayout = O.emptyOf<Chunk<FullLayout.FullLayout>>()
       const computed = pipe(
         header.toFigHeader(),
@@ -303,7 +295,7 @@ describe("HorizontalLayout", () => {
         E.chain(HorizontalLayout.fromHeader)
       )
 
-      expect(computed).equals(E.right(new HorizontalLayout.FullWidth()))
+      expect(computed).toEqual(E.right(HorizontalLayout.FullWidth))
     })
   })
 })

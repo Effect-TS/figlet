@@ -1,7 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
-
 // -----------------------------------------------------------------------------
 // Model
 // -----------------------------------------------------------------------------
@@ -14,19 +12,47 @@ export type Justification = Center | FlushLeft | FlushRight | FontDefault
 /**
  * Renders the font output centered horizontally.
  */
-export class Center extends Tagged("Center")<{}> {}
+export interface Center {
+  readonly _tag: "Center"
+}
 
 /**
  * Renders the font output flush to the left.
  */
-export class FlushLeft extends Tagged("FlushLeft")<{}> {}
+export interface FlushLeft {
+  readonly _tag: "FlushLeft"
+}
 
 /**
  * Renders the font output flush to the right.
  */
-export class FlushRight extends Tagged("FlushRight")<{}> {}
+export interface FlushRight {
+  readonly _tag: "FlushRight"
+}
 
 /**
  * Uses the default value specified in the `FigFont` to render the font.
  */
-export class FontDefault extends Tagged("FontDefault")<{}> {}
+export interface FontDefault {
+  readonly _tag: "FontDefault"
+}
+
+// -----------------------------------------------------------------------------
+// Constructors
+// -----------------------------------------------------------------------------
+
+export const Center: Justification = {
+  _tag: "Center"
+}
+
+export const FlushLeft: Justification = {
+  _tag: "FlushLeft"
+}
+
+export const FlushRight: Justification = {
+  _tag: "FlushRight"
+}
+
+export const FontDefault: Justification = {
+  _tag: "FontDefault"
+}

@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import { matchTag_ } from "@effect-ts/core/Utils"
 
 import type { FigFont } from "../../FigFont/index.js"
@@ -18,17 +17,39 @@ export type PrintDirection = LeftToRight | RightToLeft | FontDefault
 /**
  * Represents rendering text from left-to-right.
  */
-export class LeftToRight extends Tagged("LeftToRight")<{}> {}
+export interface LeftToRight {
+  readonly _tag: "LeftToRight"
+}
 
 /**
  * Represents rendering text from right-to-left.
  */
-export class RightToLeft extends Tagged("RightToLeft")<{}> {}
+export interface RightToLeft {
+  readonly _tag: "RightToLeft"
+}
 
 /**
  * Represents using the default value specified in a `FigFont` to render text.
  */
-export class FontDefault extends Tagged("FontDefault")<{}> {}
+export interface FontDefault {
+  readonly _tag: "FontDefault"
+}
+
+// -----------------------------------------------------------------------------
+// Constructors
+// -----------------------------------------------------------------------------
+
+export const LeftToRight: PrintDirection = {
+  _tag: "LeftToRight"
+}
+
+export const RightToLeft: PrintDirection = {
+  _tag: "RightToLeft"
+}
+
+export const FontDefault: PrintDirection = {
+  _tag: "FontDefault"
+}
 
 // -----------------------------------------------------------------------------
 // Operations
@@ -43,8 +64,8 @@ export function toInternalLayout_(
   font: FigFont
 ): FontDirection.PrintDirection {
   return matchTag_(self, {
-    LeftToRight: () => new FontDirection.LeftToRight(),
-    RightToLeft: () => new FontDirection.RightToLeft(),
+    LeftToRight: () => FontDirection.LeftToRight,
+    RightToLeft: () => FontDirection.RightToLeft,
     FontDefault: () => font.settings.printDirection
   })
 }

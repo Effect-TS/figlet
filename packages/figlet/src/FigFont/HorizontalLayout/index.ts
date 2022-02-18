@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -31,19 +30,47 @@ export type HorizontalLayout =
   | UniversalSmushing
   | ControlledSmushing
 
-export class FullWidth extends Tagged("FullWidth")<{}> {}
+export interface FullWidth {
+  readonly _tag: "FullWidth"
+}
 
-export class HorizontalFitting extends Tagged("HorizontalFitting")<{}> {}
+export interface HorizontalFitting {
+  readonly _tag: "HorizontalFitting"
+}
 
-export class UniversalSmushing extends Tagged("UniversalSmushing")<{}> {}
+export interface UniversalSmushing {
+  readonly _tag: "UniversalSmushing"
+}
 
-export class ControlledSmushing extends Tagged("ControlledSmushing")<{
+export interface ControlledSmushing {
+  readonly _tag: "ControlledSmushing"
   readonly rules: Chunk<HorizontalSmushingRule>
-}> {}
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
+
+export const FullWidth: HorizontalLayout = {
+  _tag: "FullWidth"
+}
+
+export const HorizontalFitting: HorizontalLayout = {
+  _tag: "HorizontalFitting"
+}
+
+export const UniversalSmushing: HorizontalLayout = {
+  _tag: "UniversalSmushing"
+}
+
+export function ControlledSmushing(
+  rules: Chunk<HorizontalSmushingRule>
+): HorizontalLayout {
+  return {
+    _tag: "ControlledSmushing",
+    rules
+  }
+}
 
 /**
  * Interprets the header settings and returns the selected `HorizontalLayout`.
@@ -80,17 +107,17 @@ export function fromFullLayout(
       () => E.right(O.emptyOf<HorizontalLayout>()),
       (settings) => {
         if (
-          !hasFullLayout(settings, new FullLayout.HorizontalFitting()) &&
-          !hasFullLayout(settings, new FullLayout.HorizontalSmushing())
+          !hasFullLayout(settings, FullLayout.HorizontalFitting) &&
+          !hasFullLayout(settings, FullLayout.HorizontalSmushing)
         ) {
-          return E.right(O.some(new FullWidth()))
+          return E.right(O.some(FullWidth))
         }
 
         if (
-          hasFullLayout(settings, new FullLayout.HorizontalFitting()) &&
-          !hasFullLayout(settings, new FullLayout.HorizontalSmushing())
+          hasFullLayout(settings, FullLayout.HorizontalFitting) &&
+          !hasFullLayout(settings, FullLayout.HorizontalSmushing)
         ) {
-          return E.right(O.some(new HorizontalFitting()))
+          return E.right(O.some(HorizontalFitting))
         }
 
         const selectedSmushingRules = A.intersection_(FullLayout.equalFullLayout)(
@@ -99,15 +126,15 @@ export function fromFullLayout(
         )
 
         if (
-          hasFullLayout(settings, new FullLayout.HorizontalSmushing()) &&
+          hasFullLayout(settings, FullLayout.HorizontalSmushing) &&
           !A.isEmpty(selectedSmushingRules)
         ) {
           return E.map_(HSR.fromFullLayout(header), (rules) =>
-            O.some(new ControlledSmushing({ rules }))
+            O.some(ControlledSmushing(rules))
           )
         }
 
-        return E.right(O.some(new UniversalSmushing()))
+        return E.right(O.some(UniversalSmushing))
       }
     )
   )
@@ -125,24 +152,21 @@ export function fromOldLayout(header: FigHeader): FigletResult<HorizontalLayout>
   const settings = C.toArray(header.oldLayout)
   const eqLayoutArray = A.getEqual(OldLayout.equalOldLayout)
 
-  if (eqLayoutArray.equals(settings, A.single(new OldLayout.FullWidth()))) {
-    return E.right(new FullWidth())
+  if (eqLayoutArray.equals(settings, A.single(OldLayout.FullWidth))) {
+    return E.right(FullWidth)
   }
 
-  if (eqLayoutArray.equals(settings, A.single(new OldLayout.HorizontalFitting()))) {
-    return E.right(new HorizontalFitting())
+  if (eqLayoutArray.equals(settings, A.single(OldLayout.HorizontalFitting))) {
+    return E.right(HorizontalFitting)
   }
 
   const hasOldLayout = A.elem_(OldLayout.equalOldLayout)
 
   if (
-    !hasOldLayout(settings, new OldLayout.FullWidth()) &&
-    !hasOldLayout(settings, new OldLayout.HorizontalFitting())
+    !hasOldLayout(settings, OldLayout.FullWidth) &&
+    !hasOldLayout(settings, OldLayout.HorizontalFitting)
   ) {
-    return E.map_(
-      HSR.fromOldLayout(header),
-      (rules) => new ControlledSmushing({ rules })
-    )
+    return E.map_(HSR.fromOldLayout(header), ControlledSmushing)
   }
 
   return E.left(

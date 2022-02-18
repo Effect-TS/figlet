@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -39,7 +38,9 @@ export type HorizontalSmushingRule =
  * Two sub-characters are smushed into a single sub-character if they are the
  * same. This rule does not smush hardblanks.
  */
-export class EqualCharacter extends Tagged("EqualCharacter")<{}> {}
+export interface EqualCharacter {
+  readonly _tag: "EqualCharacter"
+}
 
 /**
  * Represents application of "underscore" character horizontal smushing.
@@ -49,7 +50,9 @@ export class EqualCharacter extends Tagged("EqualCharacter")<{}> {}
  * An underscore ("_") will be replaced by any of: "|", "/", "\", "[", "]",
  * "{", "}", "(", ")", "<" or ">".
  */
-export class Underscore extends Tagged("Underscore")<{}> {}
+export interface Underscore {
+  readonly _tag: "Underscore"
+}
 
 /**
  * Represents application of "hierarchy" character horizontal smushing.
@@ -60,7 +63,9 @@ export class Underscore extends Tagged("Underscore")<{}> {}
  * When two smushing sub-characters are from different classes, the one from
  * the latter class will be used.
  */
-export class Hierarchy extends Tagged("Hierarchy")<{}> {}
+export interface Hierarchy {
+  readonly _tag: "Hierarchy"
+}
 
 /**
  * Represents application of "opposite pair" character horizontal smushing.
@@ -71,7 +76,9 @@ export class Hierarchy extends Tagged("Hierarchy")<{}> {}
  * parentheses ("()" or ")(") together, replacing any such pair with a vertical
  * bar ("|").
  */
-export class OppositePair extends Tagged("OppositePair")<{}> {}
+export interface OppositePair {
+  readonly _tag: "OppositePair"
+}
 
 /**
  * Represents application of "big X" character horizontal smushing.
@@ -82,7 +89,9 @@ export class OppositePair extends Tagged("OppositePair")<{}> {}
  * not smushed in any way by this rule. The name "BIG X" is historical;
  * originally all three pairs were smushed into "X".
  */
-export class BigX extends Tagged("BigX")<{}> {}
+export interface BigX {
+  readonly _tag: "BigX"
+}
 
 /**
  * Represents application of "equal" character horizontal smushing.
@@ -91,11 +100,37 @@ export class BigX extends Tagged("BigX")<{}> {}
  *
  * Smushes two hardblanks together, replacing them with a single hardblank.
  */
-export class Hardblank extends Tagged("Hardblank")<{}> {}
+export interface Hardblank {
+  readonly _tag: "Hardblank"
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
+
+export const EqualCharacter: HorizontalSmushingRule = {
+  _tag: "EqualCharacter"
+}
+
+export const Underscore: HorizontalSmushingRule = {
+  _tag: "Underscore"
+}
+
+export const Hierarchy: HorizontalSmushingRule = {
+  _tag: "Hierarchy"
+}
+
+export const OppositePair: HorizontalSmushingRule = {
+  _tag: "OppositePair"
+}
+
+export const BigX: HorizontalSmushingRule = {
+  _tag: "BigX"
+}
+
+export const Hardblank: HorizontalSmushingRule = {
+  _tag: "Hardblank"
+}
 
 /**
  * Interprets the `fullLayout` header settings and returns the selected
@@ -119,12 +154,12 @@ export function fromFullLayout(
             ),
             matchTag(
               {
-                EqualCharacterHorizontalSmushing: () => O.some(new EqualCharacter()),
-                UnderscoreHorizontalSmushing: () => O.some(new Underscore()),
-                HierarchyHorizontalSmushing: () => O.some(new Hierarchy()),
-                OppositePairHorizontalSmushing: () => O.some(new OppositePair()),
-                BigXHorizontalSmushing: () => O.some(new BigX()),
-                HardblankHorizontalSmushing: () => O.some(new Hardblank())
+                EqualCharacterHorizontalSmushing: () => O.some(EqualCharacter),
+                UnderscoreHorizontalSmushing: () => O.some(Underscore),
+                HierarchyHorizontalSmushing: () => O.some(Hierarchy),
+                OppositePairHorizontalSmushing: () => O.some(OppositePair),
+                BigXHorizontalSmushing: () => O.some(BigX),
+                HardblankHorizontalSmushing: () => O.some(Hardblank)
               },
               () => O.emptyOf<HorizontalSmushingRule>()
             )
@@ -152,12 +187,12 @@ export function fromOldLayout(
       C.toArray(header.oldLayout),
       matchTag(
         {
-          EqualCharacterSmushing: () => O.some(new EqualCharacter()),
-          UnderscoreSmushing: () => O.some(new Underscore()),
-          HierarchySmushing: () => O.some(new Hierarchy()),
-          OppositePairSmushing: () => O.some(new OppositePair()),
-          BigXSmushing: () => O.some(new BigX()),
-          HardblankSmushing: () => O.some(new Hardblank())
+          EqualCharacterSmushing: () => O.some(EqualCharacter),
+          UnderscoreSmushing: () => O.some(Underscore),
+          HierarchySmushing: () => O.some(Hierarchy),
+          OppositePairSmushing: () => O.some(OppositePair),
+          BigXSmushing: () => O.some(BigX),
+          HardblankSmushing: () => O.some(Hardblank)
         },
         () => O.emptyOf<HorizontalSmushingRule>()
       )

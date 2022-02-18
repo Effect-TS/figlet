@@ -94,10 +94,10 @@ export function buildData(
 ): BuildData {
   return new BuildData({
     font: O.none,
-    horizontalLayout: new HL.FontDefault(),
-    justification: new J.FontDefault(),
+    horizontalLayout: HL.FontDefault,
+    justification: J.FontDefault,
     maxWidth: O.none,
-    printDirection: new PD.FontDefault(),
+    printDirection: PD.FontDefault,
     text: "",
     ...params
   })
@@ -335,13 +335,13 @@ export function toBuildData(
 
           // Horizontal Layout
           DefaultHorizontalLayout: () =>
-            T.succeed(data.copy({ horizontalLayout: new HL.FontDefault() })),
+            T.succeed(data.copy({ horizontalLayout: HL.FontDefault })),
           SetHorizontalLayout: (_) =>
             T.succeed(data.copy({ horizontalLayout: _.layout })),
 
           // Justification
           DefaultJustification: () =>
-            T.succeed(data.copy({ justification: new J.FontDefault() })),
+            T.succeed(data.copy({ justification: J.FontDefault })),
           SetJustification: (_) =>
             T.succeed(data.copy({ justification: _.justification })),
 
@@ -351,7 +351,7 @@ export function toBuildData(
 
           // Print Direction
           DefaultPrintDirection: () =>
-            T.succeed(data.copy({ printDirection: new PD.FontDefault() })),
+            T.succeed(data.copy({ printDirection: PD.FontDefault })),
           SetPrintDirection: (_) =>
             T.succeed(data.copy({ printDirection: _.direction })),
 

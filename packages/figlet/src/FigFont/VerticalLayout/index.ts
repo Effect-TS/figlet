@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import * as A from "@effect-ts/core/Collections/Immutable/Array"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
@@ -27,19 +26,45 @@ export type VerticalLayout =
   | UniversalSmushing
   | ControlledSmushing
 
-export class FullHeight extends Tagged("FullWidth")<{}> {}
+export interface FullHeight {
+  readonly _tag: "FullHeight"
+}
 
-export class VerticalFitting extends Tagged("HorizontalFitting")<{}> {}
+export interface VerticalFitting {
+  readonly _tag: "VerticalFitting"
+}
 
-export class UniversalSmushing extends Tagged("UniversalSmushing")<{}> {}
+export interface UniversalSmushing {
+  readonly _tag: "UniversalSmushing"
+}
 
-export class ControlledSmushing extends Tagged("ControlledSmushing")<{
+export interface ControlledSmushing {
+  readonly _tag: "ControlledSmushing"
   readonly rules: Chunk<VerticalSmushingRule>
-}> {}
+}
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
+
+export const FullHeight: VerticalLayout = {
+  _tag: "FullHeight"
+}
+
+export const VerticalFitting: VerticalLayout = {
+  _tag: "VerticalFitting"
+}
+
+export const UniversalSmushing: VerticalLayout = {
+  _tag: "UniversalSmushing"
+}
+
+export function ControlledSmushing(rules: Chunk<VerticalSmushingRule>): VerticalLayout {
+  return {
+    _tag: "ControlledSmushing",
+    rules
+  }
+}
 
 /**
  * Interprets the header settings and returns the selected `VerticalLayout`.
@@ -53,17 +78,17 @@ export function fromHeader(header: FigHeader): FigletResult<VerticalLayout> {
     header.fullLayout,
     O.map((settings) => {
       if (
-        !hasLayout(settings, new FullLayout.VerticalFitting()) &&
-        !hasLayout(settings, new FullLayout.VerticalSmushing())
+        !hasLayout(settings, FullLayout.VerticalFitting) &&
+        !hasLayout(settings, FullLayout.VerticalSmushing)
       ) {
-        return E.right(new FullHeight())
+        return E.right(FullHeight)
       }
 
       if (
-        hasLayout(settings, new FullLayout.VerticalFitting()) &&
-        !hasLayout(settings, new FullLayout.VerticalSmushing())
+        hasLayout(settings, FullLayout.VerticalFitting) &&
+        !hasLayout(settings, FullLayout.VerticalSmushing)
       ) {
-        return E.right(new VerticalFitting())
+        return E.right(VerticalFitting)
       }
 
       const selectedSmushingRules = A.intersection_(FullLayout.equalFullLayout)(
@@ -72,18 +97,15 @@ export function fromHeader(header: FigHeader): FigletResult<VerticalLayout> {
       )
 
       if (
-        hasLayout(settings, new FullLayout.VerticalSmushing()) &&
+        hasLayout(settings, FullLayout.VerticalSmushing) &&
         !A.isEmpty(selectedSmushingRules)
       ) {
-        return E.map_(
-          VSR.fromHeader(header),
-          (rules) => new ControlledSmushing({ rules })
-        )
+        return E.map_(VSR.fromHeader(header), ControlledSmushing)
       }
 
-      return E.right(new UniversalSmushing())
+      return E.right(UniversalSmushing)
     }),
-    O.getOrElse(() => E.right(new FullHeight()))
+    O.getOrElse(() => E.right(FullHeight))
   )
 }
 

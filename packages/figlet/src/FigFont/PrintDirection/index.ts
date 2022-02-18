@@ -1,6 +1,5 @@
 // ets_tracing: off
 
-import { Tagged } from "@effect-ts/core/Case"
 import type { Chunk } from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as C from "@effect-ts/core/Collections/Immutable/Chunk"
 import * as NA from "@effect-ts/core/Collections/Immutable/NonEmptyArray"
@@ -30,25 +29,34 @@ export type PrintDirection = LeftToRight | RightToLeft
 /**
  * Represents a left-to-right print direction.
  */
-export class LeftToRight extends Tagged("LeftToRight")<{}> {
-  value = 0
+export interface LeftToRight {
+  readonly _tag: "LeftToRight"
+  readonly value: 0
 }
 
 /**
  * Represents a right-to-left print direction.
  */
-export class RightToLeft extends Tagged("RightToLeft")<{}> {
-  value = 1
+export interface RightToLeft {
+  readonly _tag: "RightToLeft"
+  readonly value: 1
 }
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
 
-export const values: Chunk<PrintDirection> = C.from([
-  new LeftToRight(),
-  new RightToLeft()
-])
+export const LeftToRight: PrintDirection = {
+  _tag: "LeftToRight",
+  value: 0
+}
+
+export const RightToLeft: PrintDirection = {
+  _tag: "RightToLeft",
+  value: 1
+}
+
+export const values: Chunk<PrintDirection> = C.from([LeftToRight, RightToLeft])
 
 /**
  * Obtains the printing direction starting from the provided value.
@@ -58,9 +66,9 @@ export const values: Chunk<PrintDirection> = C.from([
  */
 export function fromValue(value: number): FigletResult<PrintDirection> {
   if (value === 0) {
-    return E.right(new LeftToRight())
+    return E.right(LeftToRight)
   } else if (value === 1) {
-    return E.right(new RightToLeft())
+    return E.right(RightToLeft)
   } else {
     return E.left(
       NA.single(
@@ -79,7 +87,7 @@ export function fromValue(value: number): FigletResult<PrintDirection> {
  * @returns A `FigletResult` containing the `PrintDirection`.
  */
 export function fromHeader(header: FigHeader): FigletResult<PrintDirection> {
-  return O.fold_(header.printDirection, () => E.right(new LeftToRight()), E.right)
+  return O.fold_(header.printDirection, () => E.right(LeftToRight), E.right)
 }
 
 // -----------------------------------------------------------------------------
