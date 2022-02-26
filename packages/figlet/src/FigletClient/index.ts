@@ -101,7 +101,7 @@ function createFigFont(
   file: string,
   buffer: S.IO<FigletException, Byte>
 ): T.IO<NonEmptyArray<FigletException>, FigFont> {
-  const transducer = Transducer.then(splitLines)(utf8Decode)
+  const transducer = Transducer.andThen(splitLines)(utf8Decode)
   return pipe(
     buffer,
     S.aggregate(transducer),

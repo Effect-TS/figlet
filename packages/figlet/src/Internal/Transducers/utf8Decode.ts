@@ -86,5 +86,5 @@ export const utf8Decode: Transducer<unknown, never, Byte, string> =
   Transduce.branchAfter(3, (bytes) =>
     C.corresponds_(bytes, C.from([-17, -69, -65]), number.equals)
       ? utf8DecodeInternal
-      : pipe(Transduce.prepend(bytes), Transduce.then(utf8DecodeInternal))
+      : pipe(Transduce.prepend(bytes), Transduce.andThen(utf8DecodeInternal))
   )
